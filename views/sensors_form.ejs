@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Raw Data</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<style type="text/css">
+		html, body {
+			height: 100%;
+  			background-color: #f1f1f1;
+		}
+	</style>
+
+</head>
+<body>
+    <% include nav %>
+
+    <div class="container" style="margin-top: 60px">
+    	<div class="row" style="background-color: #fff">
+    		<div class="col-md-12">
+    		  <h2>Sensors</h2>
+              <hr>
+
+                <% 
+                    if(result == null) {
+                %>
+                    <form class="form-horizontal" role="form" name="sensors" action="/sensors" method="POST">   
+                <%
+                    } else {
+                %>
+                    <form class="form-horizontal" role="form" method="POST" name="sensors" action="/sensors/<%=result[0].id%>?_method=PUT">
+                <%
+                    }
+                %>
+                
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="<%= result != null ? result[0].name_profile : ''%>" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="source" class="col-sm-2 control-label">Source</label>
+                        <div class="col-sm-4">
+                            <% var arraySource = [1, 2, 3]; %>
+                            <% var arraySourceLabel = ['ANALOG' , 'RS485', 'PULSE']; %>
+                            <select class="form-control" id="source" name="source" required>
+                                <option value="">- SELECT -</option>
+                            <% for(var i = 0; i < arraySource.length; i++) {%>
+                            <% var selected = (result != null) ? ((result[0].source_inp == arraySource[i]) ? 'selected' :"") : "" %>
+                                <option value="<%=arraySource[i]%>" <%=selected%>><%=arraySourceLabel[i]%></option>    
+                            <% } %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="type" class="col-sm-2 control-label">Type</label>
+                        <div class="col-sm-4">
+                            <% var arrayType = [0, 1, 2, 3, 4, 5, 6] %>
+                            <% var arrayTypeLabel = ['LEVEL' , 'PRESSURE', 'TEMPERATURE', 'FLOW', 'H2S', 'RPM', 'GAS'] %>
+                            <select class="form-control" id="type" name="type" required>
+                                <option value="">- SELECT -</option>
+                            <% for(var i = 0; i < arrayType.length; i++) {%>
+                            <% var selected = (result != null) ? ((result[0].type_inp == arrayType[i]) ? 'selected' :"") : "" %>
+                                <option value="<%=arrayType[i]%>" <%=selected%>><%=arrayTypeLabel[i]%></option> 
+                            <% } %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="chanel" class="col-sm-2 control-label">Chanel</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="chanel" name="chanel" required>
+                                <option value="0">- SELECT -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="low" class="col-sm-2 control-label">Low</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="low" placeholder="Low" name="low" value="<%= result != null ? result[0].range_min : ''%>" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="high" class="col-sm-2 control-label">High</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="high" placeholder="High" name="high" value="<%= result != null ? result[0].range_max : ''%>" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="offset" class="col-sm-2 control-label">Offset</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="offset" placeholder="Offset" name="offset" value="<%= result != null ? result[0].offset1 : ''%>" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="unit" class="col-sm-2 control-label">Unit</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="unit" name="unit" required>
+                                <option value="0">- SELECT -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="coefficient" class="col-sm-2 control-label">Coefficient</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="coefficient" placeholder="Coefficient" name="coefficient" value="<%= result != null ? result[0].coef_val : ''%>">
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="form-control" id="coefficientUnit" name="coefficientUnit" required>
+                                <option value="0">- SELECT -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="decimal" class="col-sm-2 control-label">Decimal</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="decimal" placeholder="Decimal" name="decimal" value="<%= result != null ? result[0].decimal_places : ''%>" required>
+                        </div>
+                    </div>
+
+                    <div id="analogValue" >
+                    <hr>
+                    <div class="form-group">
+                        <label for="lowMA" class="col-sm-2 control-label">Low MA</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="lowMA" placeholder="Low MA" name="lowMA" value="<%= result != null ? result[0].low_ma : ''%>" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="highMA" class="col-sm-2 control-label">High MA</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="highMA" placeholder="High MA" name="highMA" value="<%= result != null ? result[0].high_ma : ''%>" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lowValue" class="col-sm-2 control-label">Low Value</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="lowValue" placeholder="Low Value" name="lowValue" value="<%= result != null ? result[0].low_value : ''%>" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="highValue" class="col-sm-2 control-label">High Value</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="highValue" placeholder="High Value" name="highValue" value="<%= result != null ? result[0].high_value : ''%>" required>
+                        </div>
+                    </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+    	</div>
+    </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var sourceValue = $("#source").val();
+        var typeValue = $("#type").val();
+
+        if (sourceValue != 0 || sourceValue != null) {
+            var params = sourceValue;
+            var type = $("#type").val();
+            $.ajax({
+                data : 'params='+params+'&type='+type,
+                type : 'GET',
+                url : '/xhr/chanel',
+                success : function(res){
+                    console.log(res);
+                    $("#chanel").html(res);
+                }
+            })
+
+            if (params == 1) {
+                $("#analogValue").show();
+            } else {
+                $("#analogValue").hide();
+            }    
+        }
+
+        if (typeValue != null) {
+            var type = typeValue;
+            $.ajax({
+                data : 'type='+type,
+                type : 'GET',
+                url : '/xhr/unit',
+                success : function(res) {
+                    $("#unit").html(res);
+                    $("#coefficientUnit").html(res);
+                }
+            });    
+        } 
+
+        $("#source").change(function() {
+            var params = $(this).val();
+            var type = $("#type").val();
+            $.ajax({
+                data : 'params='+params+'&type='+type,
+                type : 'GET',
+                url : '/xhr/chanel',
+                success : function(res){
+                    console.log(res);
+                    $("#chanel").html(res);
+                }
+            })
+
+            if (params == 1) {
+                $("#analogValue").show();
+            } else {
+                $("#analogValue").hide();
+            }
+        });
+
+        $("#type").change(function() {
+            var type = $(this).val();
+            $.ajax({
+                data : 'type='+type,
+                type : 'GET',
+                url : '/xhr/unit',
+                success : function(res) {
+                    $("#unit").html(res);
+                    $("#coefficientUnit").html(res);
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

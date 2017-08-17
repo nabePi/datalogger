@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Raw Data</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.css"/>
+    <link rel="stylesheet" media="screen" type="text/css" href="/javascripts/colorpicker/css/colorpicker.css" />
+	<style type="text/css">
+        html, body {
+            height: 100%;
+            background-color: #f1f1f1;
+        }
+
+        @font-face {
+            font-family: 'montserrat';
+            src: url('fonts/Montserrat-Regular.otf');
+        }
+
+        @font-face {
+            font-family: 'bebas';
+            src: url('fonts/BebasNeue-Regular.otf');
+        }
+
+        .card{
+            display: table-cell;
+            height: 200px; 
+            width: 20%;
+            border-radius: 10px;
+            vertical-align: middle;
+            overflow: hidden;
+            background-color: #555555;
+            color: #fff;
+        }
+
+        .btn_setting{
+            position: absolute;
+            right: 20px;
+            top:20px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0;
+        }
+        .card:hover .btn_setting{
+            opacity: 1;
+        }
+        .card:hover .btn_setting a{
+            opacity: 1;
+            color: white;
+            cursor: hand !important;
+        }
+
+        .title-card{
+            font-size: 34px;
+            font-size: 2vw;
+            height: 100px;
+            background-color: rgba(255,255,255,0.15);
+            position: relative;
+            padding: 0 20px;
+            line-height: 2vw;
+            font-family: 'montserrat';
+        }
+
+        .value-card{
+            font-size: 34px;
+            font-size: 4.5vw;
+            text-align: right;
+            height: 100px;  
+            position: relative;
+            padding: 0 20px;
+            font-family: 'bebas';   
+        }
+
+        .value-card small{
+            font-size: 70%
+        }
+        
+        .value-card p{
+            margin: 0;
+        }
+        
+        .card .title-card p, .card .value-card p{
+            margin:0;
+            position: relative;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+
+        .level{
+            background-color: #16a086;
+        }
+        
+        .pressure{
+            background-color: #2a80b9;
+        }
+        
+        .temperature{
+            background-color: #f49c14;
+        }
+            
+        .flow{
+            background-color: #8f44ad;
+        }
+        
+        .h2s{
+            background-color: #c1392b;
+        }
+
+        .rpm{
+            background-color: #2d3e50;
+        }
+
+        .gas{
+            background-color: #808b8d;
+        }
+
+    </style>
+</head>
+<body>
+
+    <% include nav %>
+
+    <div class="container" style="margin-top: 60px">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Dashboard <a href="/dashboard/setup/" class="btn btn-success pull-right" style="padding: -10px">SETUP DASHBOARD</a></h2>
+                <hr>
+                <div>
+                    <% var no=1 %>
+
+                    <ul class="nav nav-tabs" role="tablist"> 
+                        <% var arrayGroupTemp = [] %>                 
+                        <% for(var i=0; i<groupSensor.length; i++) { 
+                            var keyGroup = groupSensor[i]._group;
+                            arrayGroupTemp.push(groupSensor[i]._group);
+                            var actived = ''
+                            if(i == 0){
+                                actived = 'active'
+                            }
+                        %>
+                        <li role="presentation" class="<%=actived%>"><a href="#<%=keyGroup %>" aria-controls="<%=keyGroup %>" role="tab" data-toggle="tab"><strong><%=groupSensor[i].name %></strong></a></li>
+
+                        <% } %>
+
+                    </ul>
+
+                    <input type="hidden" name="arrayGT" id="arrayGT" value="<%=arrayGroupTemp %>">
+                        
+                    <div class="tab-content" id="groupIdKey">
+
+                        <% for(var i=0; i<groupSensor.length; i++) { 
+                            var keyGroup = groupSensor[i]._group;
+                            var actived = ''
+                            if(i == 0){
+                                actived = 'active';
+                            }
+                        %>
+                        
+                        <input type="hidden" name="i_<%=keyGroup %>" id="i_<%=keyGroup %>" value="<%=JSON.stringify(arrayGV[keyGroup]) %>">
+
+                        <div role="tabpanel" class="tab-pane <%=actived%>" id="<%=keyGroup %>">
+                            <%=keyGroup %>
+                            <%=arrayGV[keyGroup].length %>
+                            <%=JSON.stringify(arrayGV[keyGroup]) %>
+                            
+                        </div>
+                        <% } %>
+
+                        
+
+
+                        <!-- <div role="tabpanel" class="tab-pane" id="profile">
+                            <div class="row">
+
+                            <div class="col-md-3" style="padding: 8px;">
+                            <div class="card temperature">
+                            <div class="title-card">
+                            <p>Tanki 9</p>
+                            </div>
+                            <div class="value-card"><p>0 <small>bbl</small></p></div>
+                            </div>
+                            </div>
+
+                            <div class="col-md-3" style="padding: 8px;">
+                            <div class="card rpm">
+                            <div class="title-card">
+                            <p>Tanki 9</p>
+                            </div>
+                            <div class="value-card"><p>0 <small>bbl</small></p></div>
+                            </div>
+                            </div>
+
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                     
+            </div>
+    	</div>
+        <br><br><br>
+    </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+<script src="/javascripts/jscolor/jscolor.js"></script>
+<script type="text/javascript" src="/javascripts/colorpicker/js/colorpicker.js"></script>
+<script type="text/javascript">
+    function deleteSensor(val){
+        console.log(val);
+        $.ajax({
+            url : '/sensors/delete',
+            type : 'DELETE',
+            data : 'id='+val,
+            success : function(res){
+                if (res) {
+                    // document.location = '/sensors';
+                }
+            }
+        })
+    }
+
+    $(document).ready(function() {
+        // var jsonParse;
+        // $("#groupIdKey input[type=text]").each(function() {
+        //     jsonParse = JSON.parse($(this).val());
+        //     console.log(jsonParse);
+        // });
+        $('#colorSelector').ColorPicker({
+    color: '#0000ff',
+    onShow: function (colpkr) {
+        $(colpkr).fadeIn(500);
+        return false;
+    },
+    onHide: function (colpkr) {
+        $(colpkr).fadeOut(500);
+        return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+        $('#colorSelector div').css('backgroundColor', '#' + hex);
+    }
+});
+
+
+        var socket = io.connect('http://localhost:8000');
+        socket.on('notification', function(res) {
+            var splitTemp = $('#arrayGT').val();
+            var _splitTemp = splitTemp.split(',');
+            // console.log(_splitTemp);
+            console.log(res);
+            for (var i = 0; i < _splitTemp.length; i++) {
+
+                var fooTest = JSON.parse($('#i_'+_splitTemp[i]).val())
+
+                var repeat = 0;
+                var colorCard = ['level', 'pressure', 'temperature', 'flow', 'h2s', 'rpm', 'gas'];
+
+                var element = '';
+                
+                for (var x = 0; x < fooTest.length; x++) {
+                    var sensor_id = fooTest[x]._sensor;
+                    console.log(res.data[sensor_id]);
+
+                    if (repeat == 0) {
+                        element += '<div class="row">';
+                    }
+                    
+                    element += '<div class="col-md-3" style="padding: 8px;">';
+                    element += '<div class="card '+ colorCard[res.data[sensor_id].sensor_type] +' jscolor">';
+                    // element += '<div class="btn_setting"><a href="" class="  "><i class="glyphicon glyphicon-cog"></i></a></div>';
+                    element += '<div class="title-card">';
+                    element += '<p>'+res.data[sensor_id].sensor_name+'</p>';
+                    element += '</div>';
+                    element += '<div class="value-card">'
+                    element += '<p>'+res.data[sensor_id].sensor_value+' <small>'+res.data[sensor_id].sensor_coefficientUnit+'</small></p>';
+                    element += '</div>';
+                    element += '</div>';
+                    element += '</div>';
+
+                    if (repeat == 3) {
+                        element += '</div>';
+                        repeat = -1;
+                    }
+
+                    repeat++; 
+                }
+
+                $('#'+_splitTemp[i]).html(element);
+
+            }
+
+            // console.log($('#arrayGT').val());            
+        });
+    });
+</script>
+</body>
+</html>

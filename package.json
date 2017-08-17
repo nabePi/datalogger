@@ -1,0 +1,33 @@
+{
+  "name": "datalogger",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "interface": "node ./bin/www",
+    "service": "node ./service/service.js"
+  },
+  "dependencies": {
+    "async": "^2.5.0",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "ejs": "^2.5.6",
+    "express": "~4.15.2",
+    "express-flash": "0.0.2",
+    "express-session": "^1.15.4",
+    "jade": "~1.11.0",
+    "method-override": "^2.3.9",
+    "morgan": "~1.8.1",
+    "mysql": "^2.13.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "serve-favicon": "~2.4.2",
+    "socket.io": "^2.0.3"
+  },
+  "keywords": [
+    "Data",
+    "Logger"
+  ],
+  "author": "Wahyu Said"
+}

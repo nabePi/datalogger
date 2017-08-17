@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Raw Data</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.css"/>
+
+    <style type="text/css">
+        @font-face {
+            font-family: 'montserrat';
+            src: url('fonts/Montserrat-Regular.otf');
+        }
+
+        html, body {
+            height: 100%;
+            background-color: #f1f1f1;
+        }
+        
+    </style>
+
+</head>
+<body>
+    <% include nav %>
+
+    <div class="container" style="margin-top: 60px">
+        <div class="row" >
+            <div class="col-md-12" style="padding: 15px">
+                <div style="background-color: #fff; padding:20px">    
+                    <h2>Dashboard Group</h2>
+                    <hr>
+                    <a href="/dashboard/group/form" class="btn btn-large btn-primary">Add Group</a>
+                    <br><br>
+                    <table class="table table table-striped table-responsive" id="tableUser">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">No</th>
+                                <th style="text-align: center;">Name</th>
+                                <th style="text-align: center;">Description</th>
+                                <th style="text-align: center;">Action</th>  
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% var no=1 %>
+                            <% for(var i=0; i<results.length; i++) { %>
+                            <tr>
+                                <td style="text-align: center;"><%=no %></td>
+                                <td><%=results[i].name %></td>
+                                <td><%=results[i].description %></td>
+                                <td align="center"><a href="/dashboard/group/form/<%=results[i].id %>" class="btn btn-success">EDIT</a> | <a href="javascript:void(0)" onclick="deleteDashboardGroup(<%=results[i].id %>)" class="btn btn-danger">DELETE</a></td>
+                            </tr>
+                            <% no++ %>
+                            <% } %>
+                        </tbody>
+                    </table>
+                <br>
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+    </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+<script type="text/javascript">
+    function deleteDashboardGroup(val){
+        console.log(val);
+        var confirmed = confirm('Are you sure delete ?');
+        if (confirmed) {
+            $.ajax({
+                url : '/dashboard/group/delete',
+                type : 'DELETE',
+                data : 'id='+val,
+                success : function(res){
+                    if (res) {
+                        document.location = '/dashboard/group';
+                    }
+                }
+            })
+        }
+    }
+
+    $(document).ready(function() {
+        $('#tableUser').DataTable();
+        $('#tableGroup').DataTable();
+    });
+</script>
+</body>
+</html>

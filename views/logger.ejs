@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Raw Data</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="javascripts/noUiSlider/nouislider.css">
+
+	<style type="text/css">
+		html, body {
+			height: 100%;
+  			background-color: #f1f1f1;
+		}
+        /* Switch button */
+        .btn-default.btn-on.active{background-color: #5BB75B;color: white;}
+        .btn-default.btn-off.active{background-color: #DA4F49;color: white;}
+
+        .btn-default.btn-on-1.active{background-color: #006FFC;color: white;}
+        .btn-default.btn-off-1.active{background-color: #DA4F49;color: white;}
+
+        .btn-default.btn-on-2.active{background-color: #00D590;color: white;}
+        .btn-default.btn-off-2.active{background-color: #A7A7A7;color: white;}
+
+        .btn-default.btn-on-3.active{color: #5BB75B;font-weight:bolder;}
+        .btn-default.btn-off-3.active{color: #DA4F49;font-weight:bolder;}
+
+        .btn-default.btn-on-4.active{background-color: #006FFC;color: #5BB75B;}
+        .btn-default.btn-off-4.active{background-color: #DA4F49;color: #DA4F49;}
+	</style>
+
+</head>
+<body>
+    <% include nav %>
+
+    <div class="container" style="margin-top: 60px">
+        <div class="row">
+            <div class="col-md-12" style="padding: 15px">
+                <div class="chartSetting" style="background-color: #fff; padding: 20px">
+                    <h2>Setting</h2>
+                    <hr>
+                    <div class="checkbox" id="sensorList">
+                    <% var n = 1 %>
+                    <% for(var i=0; i<result.length-1; i++) { %>
+                        <label style="padding-right: 10px"><input type="checkbox" data-index="<%=n%>" value="<%=result[i].name_profile %>"><%=result[i].name_profile %></label>
+                        <% n++ %>
+                    <% } %>
+                    </div>
+                    <br>       
+                </div>
+            </div>
+        </div>
+    	<div class="row">
+    		<div class="col-md-12" style="padding: 15px">
+                <div class="chartV" style="background-color: #fff;padding: 20px">
+                    <h2>Chart</h2>
+                    <hr>
+                    <br>
+                    <br>
+                    <div id="dashboardChart">
+                    <div id="controlChart" style="margin:20px 80px"></div>
+                    <input type="hidden" name="paramTable1" id="paramTable1" value="-30">
+                    <input type="hidden" name="paramTable2" id="paramTable2" value="50">
+                    <div id="curve_chart" style="height: 500px; width: 100%; margin: 0"></div>
+                    </div>
+                </div>
+    		</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="padding: 15px">
+                <div class="tableV" style="background-color: #fff; padding: 20px;">
+                    <h2>Table</h2>
+                    <hr>
+                    <!-- <span class="label label-primary" style="font-size: 15px;">STREAM DATA</span> -->
+                    <div class="labelStream" style="margin-top: 7px">
+                        <div class="btn-group" id="streamTable" data-toggle="buttons">
+                            <label class="btn btn-default btn-on-1 btn-sm active">
+                            <input type="radio" value="1" name="streamTable" checked="checked">ON</label>
+                            <label class="btn btn-default btn-off-1 btn-sm ">
+                            <input type="radio" value="0" name="streamTable">OFF</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div style="overflow:scroll;height:480px;width:100%;overflow:auto;">
+                        <table class="table table-responsive table-bordered" id="tableLogger">
+                            <thead>
+                                <tr id="tableHeader"></tr>
+                            </thead>
+                            <tbody id="tableValue"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    	</div>
+    </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="javascripts/noUiSlider/nouislider.js"></script>
+<script>
+    
+    var arrayControl = [-30, 50];
+    var slider = document.getElementById('controlChart');
+
+    noUiSlider.create(slider, {
+        start: [-50, 50],
+        connect: true,
+        range: {
+            'min': -50,
+            'max': 50
+        },
+        tooltips: true,
+    });
+
+    slider.noUiSlider.on('update', function( values, handle ) {
+        $("#paramTable1").val(values[0]);
+        $("#paramTable2").val(values[1]);
+        arrayControl = values;
+    });
+
+    var socket = io.connect('http://localhost:8000');
+    socket.on('notification', function(res) {
+        var elementRow = '';
+        elementRow += '<tr>';
+        $('#sensorList input[type=checkbox]:checked').each(function() {
+            var keyRes = $(this).val();
+            elementRow += '<td>' + res.data[keyRes] + '</td>';
+        });
+        elementRow += '</tr>';
+
+        $("#tableValue").prepend(elementRow);
+        
+        var localeDateTime = new Date(res.time).toLocaleString(); 
+        $('time').html(localeDateTime);
+        
+    });
+
+    var options = {
+        vAxis: {minValue:0, maxValue:100},
+        animation: {
+            duration: 1000,
+            easing: 'in'
+        },
+        legend : {position : 'right'},
+        axes: {
+            x: {
+                0: {side: 'top'}
+            }
+        },
+        hAxis: {
+             title: 'Value',
+            viewWindow: {min: -50, max: 50},
+            format : "decimal"
+        },
+        vAxis: {
+            title: 'Date Time'
+        },
+        orientation : 'vertical',
+        pointSize: 5,
+    };
+
+    var globalData;
+
+    google.charts.load('visualization', '1', { packages: ['corechart'], callback: function() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('datetime', 'datetime');
+        
+        $('#sensorList input[type=checkbox]:checked').each(function() {
+            data.addColumn('number', $(this).val());
+        });
+        
+        // $('tr:nth-child(1) th').each(function() {
+        //     data.addColumn('number', $(this).text());
+        //     lengthColumn ++;
+        // });
+
+        socket.on('notification', function(res) {
+            readRandom(data, options, res, arrayControl);
+        });
+
+        window.globalData = data;
+        drawChart(data, options);
+    }});
+
+    function drawChart(data, options) {
+        var chart = new google.visualization.LineChart(
+        document.getElementById('curve_chart'));
+        google.visualization.events.addListener(chart, 'ready', function() {
+            // console.log('eventReady');
+        });
+        chart.draw(data, options);
+    }
+
+    function readRandom(data, options, res, arrayControl) {
+        if (data.getNumberOfRows() > 5) {
+            data.removeRow(Math.floor(Math.random() * data.getNumberOfRows()));
+        }
+        
+        var where = 0;
+        while(where < data.getNumberOfRows()){
+            where++;
+        }
+
+        var arrayFoo = [];
+        arrayFoo.push(new Date(res.time));
+        
+        $('#sensorList input[type=checkbox]:checked').each(function() {
+            var keyRes = $(this).val()
+            arrayFoo.push(parseInt(res.data[keyRes]));
+        });
+
+
+        data.insertRows(where, [arrayFoo]);
+        
+        options.hAxis.viewWindow = {'min' : arrayControl[0], 'max' : arrayControl[1]}
+        
+        drawChart(data, options);
+    }
+   
+
+    $(document).ready(function(){
+        var elementHeader = '';
+        $('#sensorList input[type=checkbox]:checked').each(function() {
+            elementHeader += '<th>' + $(this).val() + '</th>';
+        });
+        $('#tableHeader').html(elementHeader);
+
+        $('input[type=radio][name=streamTable]').change(function() {
+            var connected = $(this).val();
+            if (connected == 1) {
+                socket.buffer = [];
+                socket.connect();
+            } else {
+                socket.close();
+            }
+        });
+
+        $('#sensorList input[type=checkbox]').click(function() {
+            var checkedSensor = $(this).prop('checked');
+            elementHeader = '';
+            if (checkedSensor) {
+                globalData.addColumn('number', $(this).val());
+                $('#sensorList input[type=checkbox]:checked').each(function() {
+                    elementHeader += '<th>' + $(this).val() + '</th>';
+                });
+                $('#tableHeader').html(elementHeader);
+            } else {
+                globalData.removeColumn($(this).data('index'));
+                $("th").remove(":nth-child(" + $(this).data('index') + ")");
+                $("td").remove(":nth-child(" + $(this).data('index') + ")");
+            }
+        });
+
+    });
+</script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+</html>
