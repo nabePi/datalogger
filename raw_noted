@@ -1,0 +1,89 @@
+# senosors_raw
+
+id
+name
+type
+source
+chanel
+----------
+lowMA
+highMA
+
+valueMin | describe range start or low
+valueMax | describe range end or high
+
+----------
+
+Unit
+
+----------
+lowMACalibration | describe change start or low MA after calibration
+highMACalibration | describe change end or high MA after calibration
+
+valueMinCalibration | describe change min value after calibration
+valueMaxCalibration | describe change max value after calibration
+-------------------
+
+
+linearity
+
+
+offset1
+offset2
+
+--------------------------------------
+
+#sensors_calc
+
+id 1
+name Sum Sensor
+variable {'sensor_raw_1' : 1, 'sensor_raw_2' : 2, 'sensor_raw_3' : 3, 'var_results' : 0}
+formula
+
+sensor_raw_1 + sensor_raw_2 + sensor_raw_3
+var_results = sensor_raw_1 + sensor_raw_2 + sensor_raw_3
+return var_results
+
+
+id 2
+name Get Zero Formula
+variable {'sensor_calc_1' : 1, 'const_1' : 150, 'var_results' : 0}
+formula 
+
+if(sensor_calc_1 == const_1)
+	sensor_calc_1 = 0
+else if (sensor_calc_1 > const_1)
+	sensor_calc_1 = const_1 - sensor_calc_1;
+else
+	sensor_calc_1 = const_1 - sensor_calc_1;
+var_results = sensor_calc_1;
+return var_results
+
+
+id 3
+name Giant From Get Zero Formula
+variable {'sensor_calc_1' : 1, 'const_1' : 150, 'var_plus' : 0, 'var_results' : 0}
+formula
+
+if(sensor_calc_1 > const_1){
+	sensor_calc_1 = const_1 - sensor_calc_1;
+	var_plus = var_plus + sensor_calc_1;
+}
+var_results = var_plus
+return var_results
+
+id 4
+name Lost From Get Zero Formula
+variable {'sensor_calc_1' : 1, 'const_1' : 150, 'var_minus' : 0, 'var_results' : 0}
+formula
+
+if(sensor_calc_1 < const_1){
+	sensor_calc_1 = const_1 - sensor_calc_1;
+	var_minus = var_minus + sensor_calc_1;
+}
+var_results = var_minus
+return var_results
+
+
+
+

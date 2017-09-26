@@ -55,6 +55,7 @@ router.post('/saveDashboard', function(req, res, next){
 	valueInsert._sensor = req.body.sensor;
 	valueInsert._group = req.body.group;
 	valueInsert.users_id = req.body.users_id;
+	valueInsert.is_calc = req.body.is_calc;
 
 	console.log(valueInsert);
 

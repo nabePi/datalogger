@@ -8,7 +8,7 @@ router.get('/signin', function(req, res, next) {
 
 router.post('/signin', 
 	passport.authenticate('local-signin', {
-			successRedirect : '/reader',
+			successRedirect : '/reader/v2',
 			failureRedirect : '/auth/signin',
 			failureFlash : true
 		}),

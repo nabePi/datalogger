@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Big Horn Guard</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/javascripts/dragula/dragula.css"/>
+
+    <style type="text/css">
+        @font-face {
+            font-family: 'montserrat';
+            src: url('fonts/Montserrat-Regular.otf');
+        }
+
+        html, body {
+            height: 100%;
+            background-color: #f1f1f1;
+            /*padding-top:15px;*/
+            padding-bottom:0 !important;margin-bottom:0 !important;
+        }
+
+        body{
+            padding-top: 80px;
+        }
+
+        .container{}
+
+        .frame_overflow{
+            /*border: 1px solid red;*/
+            background: #fff;
+            position: relative;
+            height: calc(50vw - 230px);
+            overflow: auto;
+            padding: 15px;
+        }
+        .frame_overflow a{
+            margin: 2px;
+        }
+
+        #drop-target {
+            border: 2px dashed #D9D9D9;
+            border-radius: 5px;
+            min-height: 50px;
+            margin: 0 auto;
+            margin-top: 10px    ;
+            padding: 2em;
+            display: block;
+            text-align: left;
+            height: calc(50vw - 340px);
+            background: #fff
+        }
+        
+        #drop-target div{float:left;margin: 2px;}
+
+    </style>
+
+</head>
+<body>
+    <% include nav %>
+
+    <div class="container">
+        <div class="row" >
+            <div class="col-md-6" >
+                <h4>ALL SENOSORS</h4> 
+                <div class="frame_overflow">    
+                    <div id="drag-elements">
+                        <% var flagForArray = 0 %>
+                        <% for(var i = 0; i < sensors_raw.length; i++) {%>
+                        <div>
+                            <a href="javascript:void(0)" class="btn btn-primary btn-large" data-id="<%=sensors_raw[i].id%>" data-calc="0"><%=sensors_raw[i].name%></a>
+                            <input type="hidden" name="save_dd[<%=flagForArray%>]" value="<%=sensors_raw[i].id%>,0" >
+                        </div>
+                        <% flagForArray++ %>
+                        <% } %>
+
+                        <% for(var i = 0; i < sensors_calc.length; i++) {%>
+                        <div>
+                            <a href="javascript:void(0)" class="btn btn-info btn-large" data-id="<%=sensors_calc[i].id%>" data-calc="1"><%=sensors_calc[i].name%></a>
+                            <input type="hidden" name="save_dd[<%=flagForArray%>]" value="<%=sensors_raw[i].id%>,1" >
+                        </div>
+                        <% flagForArray++ %>
+                        <% } %>
+
+                    </div>
+                </div>
+                <hr>
+                
+            </div>
+            <div class="col-md-6" >
+                <h4>DROP AREA</h4>
+
+                <form class="form-horizontal" role="form" name="formDD" id="formDD">
+                <div id="display" style="display: none;"></div>
+                <div class="well" style="background: #c2c2c2">
+                    <div class="form-group">
+                        <label for="type" class="col-sm-2 control-label">GROUPS</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="group" name="group" required>
+                                <option value="">- SELECT -</option>
+                                <% for(var i = 0; i < groups.length; i++) {%>
+                                <option value="<%=groups[i].id%>" ><%=groups[i].name%></option> 
+                                <% } %>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" onclick="ddAction()" class="btn btn-block btn-success">Submit</button>
+                        </div>
+                    </div>
+                </div>
+                </form>
+
+                <div id="drop-target">
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+    </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+<script type="text/javascript" src="/javascripts/dragula/dragula.js"></script>
+
+<script type="text/javascript">
+    function v(id) {
+        return document.getElementById(id);
+    }
+
+    dragula([v('drag-elements'), v('drop-target')], {
+        revertOnSpill: true
+    }).on('drop', function(el) {
+        if (v('drop-target').children.length > 0) {
+            console.log(v('drop-target'));
+            v('display').innerHTML = v('drop-target').innerHTML;
+        } else {
+            v('display').innerHTML = "Display";
+        }
+    });
+
+    function ddAction(){
+        var ddGroup = $("#group").val()
+        var ddData = $('#display input[type="hidden"]');
+        var arrayY = []
+        for (var i = 0;  i < ddData.length; i++) {
+            var arrayX = []
+            var getValue = ddData[i].value.split(',');
+            var sensor_id = getValue[0];
+            var is_calc = getValue[1]
+            arrayX = [sensor_id, is_calc];
+            console.log(arrayX);
+            arrayY.push(arrayX);
+        }
+        console.log(arrayY);
+        var foo_array = JSON.stringify(arrayY);
+
+         $.ajax({
+            url:'/dashboard/group/v2',
+            type:'POST',
+            data: 'group='+ddGroup+'&foo_array='+foo_array,
+            success:function(res){
+                if (res) {
+                    document.location.href = '/dashboard'; 
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

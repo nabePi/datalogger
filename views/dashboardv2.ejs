@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Big Horn Guard</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.css"/>
+    <link rel="stylesheet" media="screen" type="text/css" href="/javascripts/colorpicker/css/colorpicker.css" />
+    <link rel="stylesheet" media="screen" type="text/css" href="/stylesheets/bhg.css" />
+	
+</head>
+<body>
+    <div id="wrapper">
+        <div class="overlay"></div>
+    
+        <!-- Sidebar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#" style="color:orange">
+                       Bighorn Guard
+                    </a>
+                </li>
+
+                <li class="dropdown-header">CATEGORY</li>
+                <li>
+                    <a href="#">Main</a>
+                </li>
+                <li>
+                    <a href="#">Operator</a>
+                </li>
+                <li>
+                    <a href="#">Supervisor</a>
+                </li>
+                <li>
+                    <a href="#">Logger</a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header" >MENU</li>
+                <!-- <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Works <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-header">Dropdown heading</li>
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li> -->
+                <li>
+                    <a href="#">Setup Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Logger</a>
+                </li>
+                <li>
+                    <a href="#">Groups</a>
+                </li>
+                <li>
+                    <a href="#">User</a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
+                    <a href="#">Logout</a>
+                </li>
+
+                
+            </ul>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <button type="button" class="hamburger is-closed" data-toggle="offcanvas" >
+                <span class="hamb-top"></span>
+                <!-- <span class="hamb-middle"></span> -->
+                <span class="hamb-bottom"></span>
+            </button>
+           <!--  <div class="container">
+                <div class="row">
+                </div>
+            </div> -->
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+
+
+    <div class="tb_card">
+        <div class="column" id="fillData">
+
+        </div>
+    </div>
+
+
+    <div class="container-fluid" style="display: none">
+        <div class="row" style="padding: 10px 5px">
+
+            <div class="col-md-12">
+                <a href="/sensors" class="btn btn-primary"><i class="glyphicon glyphicon-cog"></i> SENSORS</a><br><br>
+
+                <div>
+                    <% var no=1 %>
+
+                    <ul class="nav nav-tabs" role="tablist"> 
+                        <% var arrayGroupTemp = [] %>                 
+                        <% for(var i=0; i<groupSensor.length; i++) { 
+                            var keyGroup = groupSensor[i]._group;
+                            arrayGroupTemp.push(groupSensor[i]._group);
+                            var actived = ''
+                            if(i == 0){
+                                actived = 'active'
+                            }
+                        %>
+                        <li role="presentation" class="<%=actived%>"><a href="#<%=keyGroup %>" aria-controls="<%=keyGroup %>" role="tab" data-toggle="tab"><strong><%=groupSensor[i].name %></strong></a></li>
+
+                        <% } %>
+
+                    </ul>
+
+                    <input type="hidden" name="arrayGT" id="arrayGT" value="<%=arrayGroupTemp %>">
+                        
+                    <div class="tab-content" id="groupIdKey">
+
+                        <% for(var i=0; i<groupSensor.length; i++) { 
+                            var keyGroup = groupSensor[i]._group;
+                            var actived = ''
+                            if(i == 0){
+                                actived = 'active';
+                            }
+                        %>
+                        
+                        <input type="hidden" name="i_<%=keyGroup %>" id="i_<%=keyGroup %>" value="<%=JSON.stringify(arrayGV[keyGroup]) %>">
+
+                        <div role="tabpanel" class="tab-pane <%=actived%>" id="<%=keyGroup %>">
+                            <%=keyGroup %>
+                            <%=arrayGV[keyGroup].length %>
+                            <%=JSON.stringify(arrayGV[keyGroup]) %>
+                            
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+                     
+            </div>
+    	</div>
+        <br><br><br>
+    </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<!-- Need for electron -->
+<script>
+    try {
+        $ = jQuery = module.exports;
+    } catch(e) {}
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+<script src="/javascripts/jscolor/jscolor.js"></script>
+<script type="text/javascript" src="/javascripts/colorpicker/js/colorpicker.js"></script>
+<script type="text/javascript">
+    function deleteSensor(val){
+        console.log(val);
+        $.ajax({
+            url : '/sensors/delete',
+            type : 'DELETE',
+            data : 'id='+val,
+            success : function(res){
+                if (res) {
+                    // document.location = '/sensors';
+                }
+            }
+        })
+    }
+
+    $(document).ready(function() {
+
+        $('#colorSelector').ColorPicker({
+            color: '#0000ff',
+            onShow: function (colpkr) {
+                $(colpkr).fadeIn(500);
+                return false;
+            },
+            onHide: function (colpkr) {
+                $(colpkr).fadeOut(500);
+                return false;
+            },
+            onChange: function (hsb, hex, rgb) {
+                $('#colorSelector div').css('backgroundColor', '#' + hex);
+            }
+        });
+
+        var socket = io.connect('http://localhost:8001');
+        socket.on('notification', function(res) {
+            var splitTemp = $('#arrayGT').val();
+            var _splitTemp = splitTemp.split(',');
+            // console.log(_splitTemp);
+            // console.log(res.data);
+            for (var i = 0; i < _splitTemp.length; i++) {
+
+                var fooTest = JSON.parse($('#i_'+_splitTemp[i]).val())
+                // console.log(fooTest);
+
+                var repeat = 0;
+                var colorCard = ['level', 'pressure', 'temperature', 'flow', 'h2s', 'rpm', 'gas' ,'calc'];
+
+                var element = '';
+                var autoElement = '';
+
+                var countData = fooTest.length;;
+
+                if(countData < 5)
+                    countData = countData;
+                else if(countData == 5  || countData == 6 )
+                    countData = 6
+                else if(countData == 7  || countData == 8)
+                    countData = 8
+                else if(countData == 9 )
+                    countData = 9
+                else if(countData <= 12 )
+                    countData = 12
+                else if(countData <= 15 )
+                    countData = 15
+                else if(countData == 16)
+                    countData = 16
+                else if(countData <= 20)
+                    countData = 20
+                else if(countData <= 25)
+                    countData = 25
+                else if(countData <= 30)
+                    countData = 30
+                else if(countData <= 36)
+                    countData = 36
+                else if(countData <= 42)
+                    countData = 42
+                else if(countData <= 49)
+                    countData = 49
+                else if(countData <= 56)
+                    countData = 56
+                else if(countData <= 64)
+                    countData = 64
+                else if(countData <= 72)
+                    countData = 72
+                else if(countData <= 80)
+                    countData = 80
+                else if(countData <= 90)
+                    countData = 90
+                
+                console.log(fooTest.length);
+
+                for (var x = 0; x < fooTest.length; x++) {
+                    
+                    if(fooTest[x].is_calc == 0){
+                        var sensor_id = fooTest[x]._sensor;
+                    } else {
+                        var sensor_id = 'calc_'+fooTest[x]._sensor;
+                    }
+
+                    // console.log(res.data[sensor_id]);
+
+                    if (repeat == 0) {
+                        element += '<div class="row">';
+                    }
+
+
+                    if(fooTest[x].is_calc == 0){
+                        // Sensor Raw
+                        element += '<div class="col-md-3" style="padding: 8px;">';
+                        element += '<div class="card '+ colorCard[res.data[sensor_id].sensor_type] +' jscolor">';
+                        // element += '<div class="btn_setting"><a href="" class="  "><i class="glyphicon glyphicon-cog"></i></a></div>';
+                        element += '<div class="title-card">';
+                        element += '<p>'+res.data[sensor_id].sensor_name+'</p>';
+                        element += '</div>';
+                        element += '<div class="value-card">'
+                        element += '<p>'+res.data[sensor_id].sensor_value+' <small>'+res.data[sensor_id].sensor_unit+'</small></p>';
+                        element += '</div>';
+                        element += '</div>';
+                        element += '</div>';
+
+                        // autoElement Raw
+                        autoElement += '<div class="cell-'+countData+'">'
+                        autoElement += '<div class="card '+ colorCard[res.data[sensor_id].sensor_type] +'">'
+                        autoElement += '<div class="title">'
+                        autoElement += '<p>'+res.data[sensor_id].sensor_name+'</p>';
+                        autoElement += '</div>'
+                        autoElement += '<div class="value">'
+                        autoElement += '<p>'+res.data[sensor_id].sensor_value+' <small>'+res.data[sensor_id].sensor_unit+'</small></p>';
+                        autoElement += '</div>'
+                        autoElement += '</div>'
+                        autoElement += '</div>'
+
+                    } else {
+                        // Sensor Calc
+                        element += '<div class="col-md-3" style="padding: 8px;">';
+                        element += '<div class="card '+ colorCard[res.data[sensor_id].sensor_type] +' jscolor">';
+                        // element += '<div class="btn_setting"><a href="" class="  "><i class="glyphicon glyphicon-cog"></i></a></div>';
+                        element += '<div class="title-card">';
+                        element += '<p>'+res.data[sensor_id].sensor_name+'</p>';
+                        element += '</div>';
+                        element += '<div class="value-card">'
+                        element += '<p>'+res.data[sensor_id].sensor_value+'</p>';
+                        element += '</div>';
+                        element += '</div>';
+                        element += '</div>';
+
+                        // autoElement Calc
+                        autoElement += '<div class="cell-'+countData+'">'
+                        autoElement += '<div class="card '+ colorCard[res.data[sensor_id].sensor_type] +'">'
+                        autoElement += '<div class="title">'
+                        autoElement += '<p>'+res.data[sensor_id].sensor_name+'</p>'
+                        autoElement += '</div>'
+                        autoElement += '<div class="value">'
+                        autoElement += '<p>'+res.data[sensor_id].sensor_value+'</p>';
+                        autoElement += '</div>'
+                        autoElement += '</div>'
+                        autoElement += '</div>'
+                    }
+
+                    if (repeat == 3) {
+                        element += '</div>';
+                        repeat = -1;
+                    }
+
+                    repeat++; 
+                }
+
+                $('#'+_splitTemp[i]).html(element);
+                $('#fillData').html(autoElement);
+            }      
+        });
+
+        // For sidemenu
+        var trigger = $('.hamburger');
+        var overlay = $('.overlay');
+        var isClosed = false;
+
+        trigger.click(function () {
+          hamburger_cross();      
+        });
+
+        $('.overlay').click(function () {
+            hamburger_cross();
+            $('#wrapper').toggleClass('toggled'); 
+        });
+
+        function hamburger_cross() {
+            if (isClosed == true) {
+                overlay.hide();
+                trigger.removeClass('is-open');
+                trigger.addClass('is-closed');
+                isClosed = false;
+            } else {   
+                overlay.show();
+                trigger.removeClass('is-closed');
+                trigger.addClass('is-open');
+                isClosed = true;
+            }
+        }
+          
+        $('[data-toggle="offcanvas"]').click(function () {
+            $('#wrapper').toggleClass('toggled');
+        });
+
+         
+    });
+</script>
+</body>
+</html>

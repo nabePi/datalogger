@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Raw Data</title>
+	<title>Big Horn Guard</title>
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -46,7 +46,7 @@
                     <div class="checkbox" id="sensorList">
                     <% var n = 1 %>
                     <% for(var i=0; i<result.length-1; i++) { %>
-                        <label style="padding-right: 10px"><input type="checkbox" data-index="<%=n%>" value="<%=result[i].name_profile %>"><%=result[i].name_profile %></label>
+                        <label style="margin: 5px"><input type="checkbox" data-index="<%=n%>" value="<%=result[i].name_profile %>"><%=result[i].name_profile %></label>
                         <% n++ %>
                     <% } %>
                     </div>
@@ -55,7 +55,7 @@
             </div>
         </div>
     	<div class="row">
-    		<div class="col-md-12" style="padding: 15px">
+    		<div class="col-md-6" style="padding: 15px">
                 <div class="chartV" style="background-color: #fff;padding: 20px">
                     <h2>Chart</h2>
                     <hr>
@@ -69,9 +69,7 @@
                     </div>
                 </div>
     		</div>
-        </div>
-        <div class="row">
-            <div class="col-md-12" style="padding: 15px">
+            <div class="col-md-6" style="padding: 15px">
                 <div class="tableV" style="background-color: #fff; padding: 20px;">
                     <h2>Table</h2>
                     <hr>
@@ -125,13 +123,13 @@
         arrayControl = values;
     });
 
-    var socket = io.connect('http://localhost:8000');
+    var socket = io.connect('http://localhost:8001');
     socket.on('notification', function(res) {
         var elementRow = '';
         elementRow += '<tr>';
         $('#sensorList input[type=checkbox]:checked').each(function() {
             var keyRes = $(this).val();
-            elementRow += '<td>' + res.data[keyRes] + '</td>';
+            elementRow += '<td>' + res.data[keyRes].toFixed(2) + '</td>';
         });
         elementRow += '</tr>';
 

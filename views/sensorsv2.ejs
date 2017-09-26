@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Big Horn Guard</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.css"/>
+
+  <link rel="stylesheet" type="text/css" href="javascripts/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+
+	<style type="text/css">
+    @font-face {
+      font-family: 'montserrat';
+      src: url('fonts/Montserrat-Regular.otf');
+    }
+
+		html, body {
+			height: 100%;
+  		background-color: #f1f1f1;
+    }
+
+    .modal{
+      overflow:auto !important;
+    }
+
+    .labelCalc a {
+      margin: 5px;
+    }
+
+    .bootstrap-tagsinput {
+      min-height: 130px;
+      min-width: 100%;
+    }
+
+	</style>
+
+</head>
+<body>
+    <% include nav %>
+
+    <div class="container" style="margin-top: 60px">
+    	<div class="row" style="background-color: #fff ">
+    		<div class="col-md-12">
+    		  <h2>Sensors</h2>
+              <hr>
+              
+                <ul class="nav nav-tabs" role="tablist"> 
+                  <li role="presentation" class="active"><a href="#analog" aria-controls="analog" role="tab" data-toggle="tab">ANALOG</a></li>
+                  <li role="presentation"><a href="#pulse" aria-controls="pulse" role="tab" data-toggle="tab">DIGITAL</a></li>
+                  <li role="presentation"><a href="#rs485" aria-controls="rs485" role="tab" data-toggle="tab">RS485</a></li>
+                  <li role="presentation"><a href="#plc" aria-controls="plc" role="tab" data-toggle="tab">PLC</a></li>
+                  <li role="presentation"><a href="#math" aria-controls="math" role="tab" data-toggle="tab">MATH</a></li>
+                </ul>
+
+                <div class="tab-content" id="groupIdKey">
+                  
+                  <div role="tabpanel" class="tab-pane active" id="analog" style="padding: 10px;">
+                    
+                    <h3>Analog Sensors</h3>
+                    <hr>
+                    <table class="table table table-striped table-responsive">
+                      <thead>
+                          <tr>
+                              <th style="text-align: center;">No</th>
+                              <th style="text-align: center;">Chanel Sensor</th>
+                              <th style="text-align: center;">Actual Value Sensor</th>
+                              <th style="text-align: center;">Name Sensor</th>
+                              <th style="text-align: center;">Type Sensor</th>
+                              <th style="text-align: center;">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody id="chanelAnalog">
+                      <!-- Analog have 64 chanel -->
+                      <% for(var i=1;  i<65; i++){ %>
+                      <tr>
+                        <td align="center"><%=i %></td>
+                        <td align="center">Chanel <%=i %></td>
+                        <td align="center"><input type="text" id="analog-chanel-<%=i %>" name="analog_chanel<%=i %>" readonly="true"></td>
+                        <td align="center" id="analog_name-<%=i %>"></td>
+                        <td align="center" id="analog_type-<%=i %>"></td>
+                        <td align="center" id="analog_action-<%=i %>"></td>
+                      </tr>
+                      <% } %>
+                      </tbody>
+                    </table>
+
+                  </div>
+
+                  <div role="tabpanel" class="tab-pane " id="pulse" style="padding: 10px">
+                    
+                    <h3>Pulse Sensors</h3>
+                    <hr>
+                    <table class="table table table-striped table-responsive">
+                      <thead>
+                          <tr>
+                              <th style="text-align: center;">No</th>
+                              <th style="text-align: center;">Chanel Sensor</th>
+                              <th style="text-align: center;">Actual Value Sensor</th>
+                              <th style="text-align: center;">Name Sensor</th>
+                              <th style="text-align: center;">Type Sensor</th>
+                              <th style="text-align: center;">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody id="chanelPulse">
+                      <!-- Pulse have 16 chanel -->
+                      <% for(var i=1;  i<17; i++){ %>
+                      <tr>
+                        <td align="center"><%=i %></td>
+                        <td align="center">Chanel <%=i %></td>
+                        <td align="center"><input type="text" id="pulse-chanel-<%=i %>" name="pulse_chanel<%=i %>" readonly="true"></td>
+                        <td align="center" id="pulse_name-<%=i %>"></td>
+                        <td align="center" id="pulse_type-<%=i %>"></td>
+                        <td align="center" id="pulse_action-<%=i %>"></td>
+                      </tr>
+                      <% } %>
+                      </tbody>
+                    </table>
+
+                  </div>
+
+                  <div role="tabpanel" class="tab-pane " id="rs485" style="padding: 10px">
+                    
+                    <h3>RS485 Sensors</h3>
+                    <hr>
+                    <table class="table table table-striped table-responsive">
+                      <thead>
+                          <tr>
+                              <th style="text-align: center;">No</th>
+                              <th style="text-align: center;">Chanel Sensor</th>
+                              <th style="text-align: center;">Actual Value Sensor</th>
+                              <th style="text-align: center;">Name Sensor</th>
+                              <th style="text-align: center;">Type Sensor</th>
+                              <th style="text-align: center;">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody id="chanelRS485">
+                      
+                      </tbody>
+                    </table>
+
+                  </div>
+
+                  <div role="tabpanel" class="tab-pane " id="plc" style="padding: 10px">
+                    PLC
+                  </div>
+
+                  <div role="tabpanel" class="tab-pane " id="math" style="padding: 10px">
+                    <h3>MATH / CALC</h3>
+                    <hr>
+                    <a href="javascript:void(0)" class="btn btn-primary" onclick="mathAction()">ADD MATH</a>
+                    <br><br>
+                    <table class="table table table-striped table-responsive">
+                      <thead>
+                          <tr>
+                              <th style="text-align: center;">No</th>
+                              <th style="text-align: center;">Name</th>
+                              <th style="text-align: center;">Formula</th>
+                              <th style="text-align: center;">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody id="dataListMath">
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                
+                </div>
+
+              <br>
+            </div>
+    	</div>
+        <br><br><br>
+    </div>
+
+<!-- Modal -->
+<div id="myModalAnalog" class="modal fade" role="dialog">
+  <form class="form-horizontal" role="form" name="sensors" id="sensors" action="/sensors" method="POST">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">SENSOR ANALOG CHANEL <span id="chanelAnalogLabel"></span></h4>
+      </div>
+      <div class="modal-body">
+
+          <input type="hidden" class="form-control" id="source" name="source" value="1">
+          <input type="hidden" class="form-control" id="chanel" name="chanel" value="">
+
+        
+          <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Name</label>
+              <div class="col-sm-3">
+                <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="" required>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <label for="type" class="col-sm-2 control-label">Type</label>
+            <div class="col-sm-3">
+              <% var arrayType = [0, 1, 2, 3, 4, 5, 6] %>
+              <% var arrayTypeLabel = ['LEVEL' , 'PRESSURE', 'TEMPERATURE', 'FLOW', 'H2S', 'RPM', 'GAS'] %>
+              <select class="form-control" id="type" name="type" required>
+                <option value="">- SELECT -</option>
+                <% for(var i = 0; i < arrayType.length; i++) {%>
+                <option value="<%=arrayType[i]%>" ><%=arrayTypeLabel[i]%></option> 
+                <% } %>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="unit" class="col-sm-2 control-label">Unit</label>
+            <div class="col-sm-3">
+              <select class="form-control" id="unit" name="unit" required>
+                <option value="0">- SELECT -</option>
+              </select>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="actualValue" class="col-sm-4 control-label">Actual Value</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="actualValue" name="actualValue" value="" disabled="true" required>
+                </div>
+              </div>
+              <hr>
+
+              <div class="form-group">
+                <label for="low_ma" class="col-sm-4 control-label">Low MA</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="low_ma" placeholder="Low MA" name="low_ma" value="" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="high_ma" class="col-sm-4 control-label">High MA</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="high_ma" placeholder="High MA" name="high_ma" value="" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="value_min" class="col-sm-4 control-label">Min Value</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="value_min" placeholder="Min Value" name="value_min" value="" required>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                <label for="value_max" class="col-sm-4 control-label">Max Value</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="value_max" placeholder="Max Value" name="value_max" value="" required>
+                </div>
+              </div>
+
+              <hr>
+
+              <br>
+              <div class="form-group">
+                <label for="offset" class="col-sm-4 control-label">Offset</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="offset" placeholder="Offset" name="offset" value="" >
+                  </div>
+              </div>
+              <br>
+            
+            </div>
+
+            <div class="col-sm-6">
+              
+              <div class="form-group" id="btnShowCalibrationForm">
+                <div class="col-sm-offset-3 col-sm-9">
+                  <a href="javascript:void(0)" class="btn btn-success" id="" onclick="showCalibrationForm()">Do you want to calibrate ?</a>
+                </div>
+              </div>
+
+              <div class="form-group" id="btnHideCalibrationForm">
+                <div class="col-sm-offset-3 col-sm-9">
+                  <a href="javascript:void(0)" class="btn btn-danger" id="" onclick="hideCalibrationForm()">Cancel calibrate</a>
+                </div>
+              </div>  
+
+              <div id="calibrationForm" class="well" style="display: none; margin: 0px;">
+                <h5><strong>Calibration Form</strong></h5>
+                <hr>
+
+                <div class="form-group">
+                  <label for="low_ma_calibration" class="col-sm-3 control-label">Low MA</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="low_ma_calibration" placeholder="Low MA" name="low_ma_calibration" value="" >
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="javascript:void(0)" class="btn btn-success form-control" onclick="getVfromActualValue('low_ma_calibration')">Pickup</a>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="value_min_calibration" class="col-sm-3 control-label">Min Value</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control" id="value_min_calibration" placeholder="Min Value" name="value_min_calibration" value="" >
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="form-group">
+                  <label for="high_ma_calibration" class="col-sm-3 control-label">High MA</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="high_ma_calibration" placeholder="High MA" name="high_ma_calibration" value="" >
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="javascript:void(0)" class="btn btn-success form-control" onclick="getVfromActualValue('high_ma_calibration')">Pickup</a>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="value_max_calibration" class="col-sm-3 control-label">Max Value</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="value_max_calibration" placeholder="Max Value" name="value_max_calibration" value="" >
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-md">Submit</button>
+      </div>
+    </div>
+
+  </div>
+  </form>
+</div>
+
+
+<div id="myModalPulse" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">SENSOR DIGITAL / PULSE CHANEL <span id="chanelPulseLabel"></span></h4>
+      </div>
+      <form class="form-horizontal" role="form" id="sensorsPulse" name="sensorsPulse" action="/sensors/pulse" method="POST">
+        
+        <input type="hidden" class="form-control" id="sourcePulse" name="sourcePulse" value="3">
+        <input type="hidden" class="form-control" id="chanelPulseHidden" name="chanelPulseHidden">
+        
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="namePulse" class="col-sm-3 control-label">Name</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="namePulse" placeholder="Name" name="namePulse" value="" required>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <label for="typePulse" class="col-sm-3 control-label">Type</label>
+            <div class="col-sm-4">
+              <% var arrayType = [0, 1, 2, 3, 4, 5, 6] %>
+              <% var arrayTypeLabel = ['LEVEL' , 'PRESSURE', 'TEMPERATURE', 'FLOW', 'H2S', 'RPM', 'GAS'] %>
+              <select class="form-control" id="typePulse" name="typePulse" required>
+                <option value="">- SELECT -</option>
+                <% for(var i = 0; i < arrayType.length; i++) {%>
+                <option value="<%=arrayType[i]%>" ><%=arrayTypeLabel[i]%></option> 
+                <% } %>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="unitPulse" class="col-sm-3 control-label">Unit</label>
+            <div class="col-sm-4">
+              <select class="form-control" id="unitPulse" name="unitPulse" required>
+                <option value="0">- SELECT -</option>
+              </select>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="form-group">
+            <label for="actualValuePulse" class="col-sm-3 control-label">Actual Value</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="actualValuePulse" name="actualValuePulse" value="" disabled="true" required>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="form-group">
+            <label for="minValuePulse" class="col-sm-3 control-label">Min Value</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="minValuePulse" placeholder="Min Value" name="minValuePulse" value="" required>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <label for="maxValuePulse" class="col-sm-3 control-label">Max Value</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="maxValuePulse" placeholder="Max Value" name="maxValuePulse" value="" required>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="form-group">
+            <label for="offsetPulse" class="col-sm-3 control-label">Offset</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="offsetPulse" placeholder="Offset" name="offsetPulse" value="">
+              </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" >Submit</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+
+<div id="myModalRS485" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">SENSOR RS485 CHANEL <span id="chanelRS485Label"></span></h4>
+      </div>
+      <div class="modal-body">
+        
+        <form class="form-horizontal" role="form" name="sensors" action="/sensors" method="POST">
+          <div class="form-group">
+            <label for="nameRS485" class="col-sm-3 control-label">Name</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="nameRS485" placeholder="Name" name="nameRS485" value="" required>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <label for="typeRS485" class="col-sm-3 control-label">Type</label>
+            <div class="col-sm-4">
+              <% var arrayType = [0, 1, 2, 3, 4, 5, 6] %>
+              <% var arrayTypeLabel = ['LEVEL' , 'PRESSURE', 'TEMPERATURE', 'FLOW', 'H2S', 'RPM', 'GAS'] %>
+              <select class="form-control" id="typeRS485" name="typeRS485" required>
+                <option value="">- SELECT -</option>
+                <% for(var i = 0; i < arrayType.length; i++) {%>
+                <option value="<%=arrayType[i]%>" ><%=arrayTypeLabel[i]%></option> 
+                <% } %>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="unitRS485" class="col-sm-3 control-label">Unit</label>
+            <div class="col-sm-4">
+              <select class="form-control" id="unitRS485" name="unitRS485" required>
+                <option value="0">- SELECT -</option>
+              </select>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="form-group">
+            <label for="actualValueRS485" class="col-sm-3 control-label">Actual Value</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="actualValueRS485" name="actualValueRS485" value="" disabled="true" required>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="form-group">
+            <label for="minValueRS485" class="col-sm-3 control-label">Min Value</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="minValueRS485" placeholder="Min Value" name="minValueRS485" value="" required>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <label for="maxValueRS485" class="col-sm-3 control-label">Max Value</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="maxValueRS485" placeholder="Max Value" name="maxValueRS485" value="" required>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="form-group">
+            <label for="offsetRS485" class="col-sm-3 control-label">Offset</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="offsetRS485" placeholder="Offset" name="offsetRS485" value="" required>
+              </div>
+          </div>
+
+        </form>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="myModalMath" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <form class="form-horizontal" role="form" name="sensors_calc" id="sensors_calc" action="/sensors/calc" method="POST">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">MATH</h4>
+      </div>
+      <div class="modal-body">
+        
+          <div class="form-group">
+            <label for="nameMath" class="col-sm-3 control-label">Name Function</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="nameMath" placeholder="Name" name="nameMath" value="" required>
+              </div>
+          </div>
+
+          <hr>
+
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <a href="javascript:void(0)" onclick="getVarStaticAction()" class="btn btn-success">Get Variable Static</a>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="variableMath" class="col-sm-3 control-label">Variable Static</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="variableMath" name="variableMath" required="" data-role="tagsinput">
+              </div>
+          </div>
+
+          <hr>
+
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <a href="javascript:void(0)" onclick="createVarAction()" class="btn btn-success">Create Variable</a>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="variableCustomizeMath" class="col-sm-3 control-label">Variable Customize</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="variableCustomizeMath" name="variableCustomizeMath" data-role="tagsinput">
+              </div>
+          </div>
+
+          <hr>
+          
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <a href="javascript:void(0)" onclick="showCommandAction()" class="btn btn-success">Show Command</a>
+              <a href="javascript:void(0)" onclick="variableAction()" class="btn btn-info">Variable</a>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="formulaMath" class="col-sm-3 control-label">Formula</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="formulaMath" name="formulaMath" required=""" data-role="tagsinput">
+              </div>
+          </div>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+    </form>
+
+  </div>
+</div>
+
+
+<div id="myModalGetVarStatic" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <form class="form-horizontal" role="form" name="sensors" action="" method="POST">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">LIST STATIC VARIABLE</h4>
+      </div>
+      <div class="modal-body">
+        <h5><b># SENSORS RAW</b></h5>
+        <div id="staticVarRaw" class="labelCalc"><a href="javascript:void(0)" class="btn btn-success">DEFROST</a> <a href="javascript:void(0)" class="btn btn-success">OIL DIFF 37</a> <a href="javascript:void(0)" class="btn btn-success">GAS NH3 PROD A</a></div>
+
+        <hr>
+
+        <h5><b># SENSORS CALC</b></h5>
+        <div id="staticVarCalc" class="labelCalc"><a href="javascript:void(0)" class="btn btn-info">SIMPLE</a> <a href="javascript:void(0)" class="btn btn-info">CONDITION</a> <a href="javascript:void(0)" class="btn btn-info">ADDITION</a></div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    </form>
+
+  </div>
+</div>
+
+<div id="myModalCreateVar" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <form class="form-horizontal" role="form" name="sensors" action="" method="POST">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">CREATE VARIABLE</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-group">
+          <label for="nameVariable" class="col-sm-3 control-label">Name</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="nameVariable" placeholder="Name" name="nameVariable" value="" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label for="valueVariable" class="col-sm-3 control-label">Value</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="valueVariable" placeholder="Value" name="valueVariable" value="" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <a href="javascript:void(0)" onclick="customizeVarAction()" class="btn btn-primary">Create</a>
+            </div>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    </form>
+
+  </div>
+</div>
+
+
+<div id="myModalShowCommand" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <form class="form-horizontal" role="form" name="sensors" action="" method="POST">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">SHOW COMMAND</h4>
+      </div>
+      <div class="modal-body">
+
+        <div id="formulaCommand" class="labelCalc">
+          <h5><b># CONDITIONAL OPERATION</b></h5>
+          <a href="javascript:void(0)" class="btn btn-success" onclick="formulaCommandAction('if')">IF</a> <a href="javascript:void(0)" class="btn btn-success" onclick="formulaCommandAction('else')">ELSE</a> <a href="javascript:void(0)" class="btn btn-success" onclick="formulaCommandAction('elseif')">ELSEIF</a> <a href="javascript:void(0)" class="btn btn-success" onclick="formulaCommandAction('{')">{</a> <a href="javascript:void(0)" class="btn btn-success" onclick="formulaCommandAction('}')">}</a> <a href="javascript:void(0)" class="btn btn-success" onclick="formulaCommandAction('(')">(</a> <a href="javascript:void(0)" class="btn btn-success" onclick="formulaCommandAction(')')">)</a>     
+
+          <br>
+          <h5><b># BASIC OPERATION</b></h5>
+          <a href="javascript:void(0)" class="btn btn-success" onclick="formulaCommandAction('+')">+</a> <a href="javascript:void(0)" class="btn btn-success" onclick="formulaCommandAction('-')">-</a> <a href="javascript:void(0)" class="btn btn-success" onclick="formulaCommandAction('*')">*</a> <a href="javascript:void(0)" class="btn btn-success" onclick="formulaCommandAction('/')">/</a> <a href="javascript:void(0)" class="btn btn-success" onclick="formulaCommandAction('=')">=</a> <a href="javascript:void(0)" class="btn btn-success" onclick="formulaCommandAction('<')"><</a> <a href="javascript:void(0)" class="btn btn-success" onclick="formulaCommandAction('>')">></a> 
+
+        </div>
+        
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    </form>
+
+  </div>
+</div>
+
+<div id="myModalVariable" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <form class="form-horizontal" role="form" name="sensors" action="" method="POST">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">USEABLE VARIABLE</h4>
+      </div>
+      <div class="modal-body">
+
+        <div id="useableVariable" class="labelCalc"></div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    </form>
+
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<!-- Fix for electorn -->
+<script>
+    try {
+        $ = jQuery = module.exports;
+        // If you want module.exports to be empty, uncomment:
+        // module.exports = {};
+    } catch(e) {}
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+<script type="text/javascript" src="javascripts/bootstrap-tagsinput/dist/bootstrap-tagsinput.js"></script>
+
+<script type="text/javascript">
+    
+    // var socket = io.connect('http://36.68.225.13:75');
+    var socket = io.connect('http://localhost:8001');
+    socket.on('notification', function(res) {
+      // console.log(res.data);
+
+      // Collect All sensors raw
+      var staticVarRawElm = '';
+
+      // CALC Process
+      var dataPushCalc = res.data.push_calc;
+      var elementClac = '';
+      var staticVarCalcElm = '';
+      var n = 1;
+      for (var i = 0; i < res.data.push_calc.length; i++){
+        elementClac += '<tr>';
+        elementClac += '<td align="center">'+n+'</td>';
+        elementClac += '<td align="left">'+dataPushCalc[i].sensor_name+'</td>';
+        
+        elementClac += '<td align="left">'+dataPushCalc[i].sensor_formula+'</td>';
+        elementClac += '<td align="center" width="20%"><a href="javascript:void(0)" onclick="editMathAction('+dataPushCalc[i].sensor_id+')" class="btn btn-success">Edit</a> | <a href="javascript:void(0)" onclick="deleteMathAction('+dataPushCalc[i].sensor_id+')" class="btn btn-danger">Delete</a></td>';
+        elementClac += '</tr>';
+
+        // staticVarElm
+        staticVarCalcElm += '<a href="javascript:void(0)" onclick="staticVarAction(\''+dataPushCalc[i].sensor_name.replace(/ /g,"_").toLowerCase()+'\', '+dataPushCalc[i].sensor_id+')" class="btn btn-info">'+dataPushCalc[i].sensor_name.toUpperCase()+'</a>'
+
+        n++;
+      }
+      $('#dataListMath').html(elementClac);
+      $('#staticVarCalc').html(staticVarCalcElm);
+
+
+      // RS485 Process
+      var objDataAllRS485 = res.data.data_all_rs485;
+      var elementChanelRS485 = '';
+      var n = 1;
+      for (var i=2; i<Object.keys(res.data.raw_rs485).length; i++) {
+        var key = Object.keys(res.data.raw_rs485)[i];
+        var valueRawRS485 = res.data.raw_rs485[key];
+        var getValueRawRS485 = valueRawRS485.split('/');
+        var vRawRS485 = getValueRawRS485[1];
+        var keyNumber = key.match(/\d+/)[0];  
+
+        var rs485_name = '';
+        var rs485_type = '';
+        var rs485_action = '<a href="javascript:void(0)" onclick="rs485Action()" class="btn btn-primary">Add</a>';
+        if (objDataAllRS485[keyNumber] != undefined) {
+          rs485_name = objDataAllRS485[keyNumber][0];
+          rs485_type = objDataAllRS485[keyNumber][1];
+          
+          // rs485Action()
+          // rs485_action = '<a href="javascript:void(0)" onclick="rs485Action()" class="btn btn-success">Edit</a> | <a href="javascript:void(0)" onclick="rs485Action()" class="btn btn-danger">Delete</a>';
+
+          // Alert
+          rs485_action = '<a href="javascript:void(0)" onclick="alert(\'Under Construction\')" class="btn btn-success">Edit</a> | <a href="javascript:void(0)" onclick="alert(\'Under Construction\')" class="btn btn-danger">Delete</a>';
+
+          // staticVarRawElm
+          staticVarRawElm += '<a href="javascript:void(0)" onclick="staticVarAction(\''+rs485_name.replace(/ /g,"_").toLowerCase()+'\', '+keyNumber+')" class="btn btn-success">'+rs485_name+'</a>';
+        }
+
+        elementChanelRS485 += '<tr>';
+        elementChanelRS485 += '<td align="center">'+n+'</td>';
+        elementChanelRS485 += '<td align="center">Chanel '+keyNumber+'</td>';
+        elementChanelRS485 += '<td align="center"><input type="text" id="rs485-chanel-'+keyNumber+'" name="rs485_chanel'+keyNumber+'" readonly="true" value="'+vRawRS485+'"></td>';
+        elementChanelRS485 += '<td align="center" id="rs485_name-'+keyNumber+'">'+rs485_name+'</td>';
+        elementChanelRS485 += '<td align="center" id="rs485_type-'+keyNumber+'">'+rs485_type+'</td>';
+        elementChanelRS485 += '<td align="center" id="rs485_action-'+keyNumber+'">'+rs485_action+'</td>';
+        elementChanelRS485 += '</tr>';
+
+        n++;
+      }
+      $('#chanelRS485').html(elementChanelRS485);
+      
+      // Analog Process
+      $('#chanelAnalog input[type=text]').each(function(){
+        var selectorId = $(this).attr('id');
+        var getKeyBySelectorId = selectorId.split('-');
+        var keyId = 's'+getKeyBySelectorId[2];
+        $('#'+selectorId).val(res.data.raw_data[keyId]);
+
+        if (res.data['analog_'+getKeyBySelectorId[2]] != undefined) {
+          var sensors_raw_id = res.data['analog_'+getKeyBySelectorId[2]][2];
+
+          $('#analog_name-'+getKeyBySelectorId[2]).html(res.data['analog_'+getKeyBySelectorId[2]][0]);
+          $('#analog_type-'+getKeyBySelectorId[2]).html(res.data['analog_'+getKeyBySelectorId[2]][1]);
+          $('#analog_action-'+getKeyBySelectorId[2]).html('<a href="javascript:void(0)" onclick="editAnalogAction('+sensors_raw_id+')" class="btn btn-success">Edit</a> | <a href="javascript:void(0)" onclick="deleteAnalogAction('+sensors_raw_id+')" class="btn btn-danger">Delete</a>');
+
+          // staticVarRawElm
+          staticVarRawElm += '<a href="javascript:void(0)"  onclick="staticVarAction(\''+res.data['analog_'+getKeyBySelectorId[2]][0].replace(/ /g,"_").toLowerCase()+'\', '+getKeyBySelectorId[2]+')" class="btn btn-success">'+res.data['analog_'+getKeyBySelectorId[2]][0]+'</a>';
+        }else{
+          $('#analog_action-'+getKeyBySelectorId[2]).html('<a href="javascript:void(0)" onclick="analogAction(\''+keyId+'\','+getKeyBySelectorId[2]+')" class="btn btn-primary">Add</a>');
+        }
+      });
+
+      // Pulse Process
+      $('#chanelPulse input[type=text]').each(function(){
+        var selectorId = $(this).attr('id');
+        var getKeyBySelectorId = selectorId.split('-');
+        var keyId = 's'+getKeyBySelectorId[2];
+        $('#'+selectorId).val(res.data.raw_flow[keyId]);
+        if (res.data['pulse_'+getKeyBySelectorId[2]] != undefined) {
+          $('#pulse_name-'+getKeyBySelectorId[2]).html(res.data['pulse_'+getKeyBySelectorId[2]][0]);
+          $('#pulse_type-'+getKeyBySelectorId[2]).html(res.data['pulse_'+getKeyBySelectorId[2]][1]);
+          $('#pulse_action-'+getKeyBySelectorId[2]).html('<a href="javascript:void(0)" onclick="pulseAction()" class="btn btn-success">Edit</a> | <a href="javascript:void(0)" onclick="pulseAction()" class="btn btn-danger">Delete</a>');
+
+          // staticVarRawElm
+          staticVarRawElm += '<a href="javascript:void(0)" onclick="staticVarAction(\''+res.data['pulse_'+getKeyBySelectorId[2]][0].replace(/ /g,"_").toLowerCase()+'\', '+getKeyBySelectorId[2]+')"  class="btn btn-success">'+res.data['pulse_'+getKeyBySelectorId[2]][0]+'</a>';
+        }else{
+          $('#pulse_action-'+getKeyBySelectorId[2]).html('<a href="javascript:void(0)" onclick="pulseAction(\''+keyId+'\','+getKeyBySelectorId[2]+')" class="btn btn-primary">Add</a>');
+        }
+      });
+
+      // staticVarRawElm for id staticVarRaw
+      $('#staticVarRaw').html(staticVarRawElm); 
+    });
+
+    function getVfromActualValue(selector) {
+      var value = $('#actualValue').val();
+      $('#'+selector).val(value);
+    }
+
+    function mathAction(){
+      $('#nameMath').val('');
+      $('#variableMath').tagsinput('removeAll');
+      $('#variableCustomizeMath').tagsinput('removeAll');
+      $('#formulaMath').tagsinput('removeAll');
+
+      $('#myModalMath').modal();
+    }
+
+    function editMathAction(id){
+      console.log(id);
+      $.ajax({
+        url:'/sensors/calc/'+id,
+        type:'GET',
+        success:function(res){
+
+          console.log(res);
+          
+          // Modify for tag
+          var tagVariable1 = res[0].variable.replace(/{/g,"");
+          var tagVariable2 = tagVariable1.replace(/}/g,"");
+          var tagVariableCustomize1 = res[0].variable_customize.replace(/{/g,"");
+          var tagVariableCustomize2 = tagVariableCustomize1.replace(/}/g,"");
+          var tagFormula = res[0].formula.replace(/ /g,",");
+
+          // Fill the form sensor calc
+          $('#nameMath').val(res[0].name);
+          $('#variableMath').tagsinput('add', tagVariable2);
+          $('#variableCustomizeMath').tagsinput('add', tagVariableCustomize2);
+          $('#formulaMath').tagsinput('add', tagFormula);
+
+          // Change attr form
+          $('#sensors_calc').attr('action', '/sensors/calc/'+id+'?_method=PUT');
+
+          $('#myModalMath').modal();
+          // console.log(res);
+        }
+      })
+    }
+
+    // MUST CHANGE WITH DELETE 
+    function deleteMathAction(id){
+      console.log(id);
+      $.ajax({
+        url:'/sensors/calc/delete/'+id,
+        type:'GET',
+        success:function(res){
+          console.log(res);
+        }
+      })
+    }
+
+    function getVarStaticAction(){
+      $('#myModalGetVarStatic').modal();
+    }
+
+    function staticVarAction(name, id){
+      // console.log(name);
+      // console.log(id);
+      $('#variableMath').tagsinput('add', '"'+name+'":'+id);
+      // $('#useableVariable').append('<a href="javascript:void(0)" onclick="useableVarAction(\''+name+'\')" class="btn btn-success">'+name+'</a>');
+    }
+
+    function customizeVarAction(){
+      var varName = $('#nameVariable').val().replace(/ /g,"_");
+      var varValue = $('#valueVariable').val();
+      $('#variableCustomizeMath').tagsinput('add', '"'+varName+'":'+varValue);
+      // $('#useableVariable').append('<a href="javascript:void(0)" onclick="useableVarAction(\''+varName+'\')" class="btn btn-success">'+varName+'</a>');
+
+      //Clearing Element
+      $('#nameVariable').val('');
+      $('#valueVariable').val('');
+    }
+
+    function useableVarAction(name){
+      $('#formulaMath').tagsinput('add', name);
+    }
+
+    function formulaCommandAction(tag){
+      $('#formulaMath').tagsinput('add', tag);
+    }
+
+    function createVarAction(){
+      $('#myModalCreateVar').modal();
+    }
+
+    function showCommandAction(){
+      $('#myModalShowCommand').modal();
+    }
+
+    function variableAction(){
+      // clearing useable variable
+       $('#useableVariable').html('');
+
+      // varaibaleMath
+      var vm  = $('#variableMath').val();
+      if(vm.length > 2 ){
+        var vm_unpack1 = vm.split(',');
+        for (var i = 0;  i < vm_unpack1.length; i++) {
+          var vm_unpack1_get = vm_unpack1[i];
+          var vm_unpack2 = vm_unpack1_get.split(':');
+          var vmFix = vm_unpack2[0].replace(/"/g,"");
+           $('#useableVariable').append('<a href="javascript:void(0)" onclick="useableVarAction(\''+vmFix+'\')" class="btn btn-success">'+vmFix+'</a>');
+        }
+      }
+
+      // variableCustomizeMath
+      var vcm = $('#variableCustomizeMath').val();
+       if(vcm.length > 2){
+        var vcm_unpack1 = vcm.split(',');
+        for (var i = 0;  i < vcm_unpack1.length; i++) {
+          var vcm_unpack1_get = vcm_unpack1[i];
+          var vcm_unpack2 = vcm_unpack1_get.split(':');
+          var vcmFix = vcm_unpack2[0].replace(/"/g,"");
+           $('#useableVariable').append('<a href="javascript:void(0)" onclick="useableVarAction(\''+vcmFix+'\')" class="btn btn-success">'+vcmFix+'</a>');
+        }
+      }
+
+      $('#myModalVariable').modal();
+    }
+
+    function pulseAction(index, chanel) {
+      console.log('pulseAction');
+
+      // Clearing form
+      $('#namePulse').val('');
+      $('#typePulse option[value=""]').prop('selected', true);
+      $('#unitPulse option[value=""]').prop('selected', true);
+      $('#minValuePulse').val('');
+      $('#maxValuePulse').val('');
+      $('#offsetPulse').val('');
+
+      $('#chanelPulseLabel').html(chanel);
+      $('#chanelPulseHidden').val(chanel);
+      
+      socket.on('notification', function(res) {
+        $('#actualValuePulse').val(res.data.raw_flow[index]);
+      });
+      
+      $('#myModalPulse').modal();
+    }
+
+    function rs485Action(){
+      console.log('rs485Action');
+      $('#myModalRS485').modal();
+    }
+
+    function analogAction(index, chanel){
+      console.log(index);
+      console.log('Action!');
+
+      // Claring form
+      $('#name').val('');
+      $('#low_ma').val('');
+      $('#high_ma').val('');
+      $('#value_min').val('');
+      $('#value_max').val('');
+      $('#low_ma_calibration').val('');
+      $('#high_ma_calibration').val('');
+      $('#value_min_calibration').val('');
+      $('#value_max_calibration').val('');
+      $('#offset').val('');
+      $('#type option[value=""]').prop('selected', true);
+      $('#unit option[value=""]').prop('selected', true);
+
+      $('#calibrationForm').hide();
+      $('#btnShowCalibrationForm').show();
+      $('#btnHideCalibrationForm').hide();
+      $('#chanelAnalogLabel').html(chanel);
+      $('#chanel').val(chanel);
+      socket.on('notification', function(res) {
+        $('#actualValue').val(res.data.raw_data[index]);
+      });
+      $('#myModalAnalog').modal();
+    }
+
+    function editAnalogAction(id){
+      console.log(id);
+
+      // Claring form
+      $('#name').val('');
+      $('#low_ma').val('');
+      $('#high_ma').val('');
+      $('#value_min').val('');
+      $('#value_max').val('');
+      $('#low_ma_calibration').val('');
+      $('#high_ma_calibration').val('');
+      $('#value_min_calibration').val('');
+      $('#value_max_calibration').val('');
+      $('#offset').val('');
+      $('#type option[value=""]').prop('selected', true);
+      $('#unit option[value=""]').prop('selected', true);
+
+      $.ajax({
+        url:'/sensors/analog/v2/edit/'+id,
+        type:'GET',
+        success:function(res){
+          console.log(res);
+          var name = res[0].name;
+          var low_ma = res[0].low_ma;
+          var high_ma = res[0].high_ma;
+          var value_min = res[0].value_min;
+          var value_max = res[0].value_max;
+          var low_ma_calibration = res[0].low_ma_calibration;
+          var high_ma_calibration = res[0].high_ma_calibration;
+          var value_min_calibration = res[0].value_min_calibration;
+          var value_max_calibration = res[0].value_max_calibration;
+          var offset = res[0].offset;
+          var type = res[0].type;
+          var unit = res[0].unit;
+          var chanel = res[0].chanel;
+
+
+          $('#chanelAnalogLabel').html(chanel);
+
+          // Change attr form
+          $('#sensors').attr('action', '/sensors/'+id+'?_method=PUT');
+
+          $('#name').val(name);
+          $('#low_ma').val(low_ma);
+          $('#high_ma').val(high_ma);
+          $('#value_min').val(value_min);
+          $('#value_max').val(value_max);
+          $('#low_ma_calibration').val(low_ma_calibration);
+          $('#high_ma_calibration').val(high_ma_calibration);
+          $('#value_min_calibration').val(value_min_calibration);
+          $('#value_max_calibration').val(value_max_calibration);
+          $('#offset').val(offset);
+          $('#type option[value="'+type+'"]').prop('selected', true);
+          $('#type').trigger('change');
+          $('#unit option[value="'+unit+'"]').prop('selected', true);
+
+
+          // actual Value
+          socket.on('notification', function(res) {
+            $('#actualValue').val(res.data.raw_data['s'+chanel]);
+          });
+
+          // console.log(low_ma_calibration);
+          // console.log(high_ma_calibration);
+          // console.log(value_min_calibration);
+          // console.log(value_max_calibration);
+
+          if(low_ma_calibration!="" || high_ma_calibration!="" || value_min_calibration!="" || value_max_calibration!=""){
+            console.log('SHOW CALIBRATION BOX');
+            $('#calibrationForm').show();
+            $('#btnShowCalibrationForm').hide();
+            $('#btnHideCalibrationForm').show();
+          }else{
+            $('#calibrationForm').hide();
+            $('#btnShowCalibrationForm').show();
+            $('#btnHideCalibrationForm').hide();
+          }
+
+          $('#myModalAnalog').modal();
+
+        }
+      });
+    }
+
+    // MUST CHANGE WITH DELETE 
+    function deleteAnalogAction(id){
+      console.log(id);
+      $.ajax({
+        url:'/sensors/analog/v2/delete/'+id,
+        type:'GET',
+        success:function(res){
+          console.log(res);
+          location.href = "/sensors"
+        }
+      })
+    }
+
+    function showCalibrationForm(){
+      $('#btnShowCalibrationForm').hide();
+      $('#btnHideCalibrationForm').show();
+      $('#calibrationForm').show();
+    }
+
+    function hideCalibrationForm(){
+      $('#btnHideCalibrationForm').hide();
+      $('#btnShowCalibrationForm').show();
+      $('#calibrationForm').hide();
+    }
+
+    $('#formulaMath').tagsinput({
+      allowDuplicates: true
+    });
+
+    $(document).ready(function() {
+      $('#tableSensor').DataTable();
+
+      // ANALOG TYPE 
+      $('#type').change(function(){
+        var valType = $(this).val();
+        var elmUnit = "";
+        elmUnit += '<option value="">- SELECT -</option>';
+
+        // LEVEL
+        if (valType == 0) {
+          elmUnit += '<option value="m3">m3</option>';
+          elmUnit += '<option value="bbl">bbl</option>';
+          elmUnit += '<option value="ltr">ltr</option>';
+          elmUnit += '<option value="gal">gal</option>';
+          elmUnit += '<option value="cm">cm</option>';
+          elmUnit += '<option value="mm">mm</option>';
+        } 
+        // PRESSURE
+        else if (valType == 1) {
+          elmUnit += '<option value="psi">psi</option>';
+          elmUnit += '<option value="bar">bar</option>';
+          elmUnit += '<option value="pascal">pascal</option>';
+          elmUnit += '<option value="kpascal">kpascal</option>';
+        }
+        // TEMPERATURE
+        else if (valType == 2) {
+          elmUnit += '<option value="c">c</option>';
+          elmUnit += '<option value="f">f</option>';
+          elmUnit += '<option value="k">k</option>';
+        }
+        // FLOW
+        else if (valType == 3) {
+          elmUnit += '<option value="lt">lt</option>';
+          elmUnit += '<option value="bbl">bbl</option>';
+          elmUnit += '<option value="gal">gal</option>';
+        }
+        // H2S
+        else if (valType == 4) {
+          elmUnit += '<option value="ppm">ppm</option>';
+          elmUnit += '<option value="%">%</option>';
+        }
+        // RPM
+        else if (valType == 5) {
+          elmUnit += '<option value="rpm">rpm</option>';
+        }
+        // GAS
+        else if (valType == 6) {
+          elmUnit += '<option value="mm">mm</option>';
+        }
+        // console.log($(this).val());
+
+        $('#unit').html(elmUnit);
+      });
+
+      // PULSE / DIGITAL TYPE 
+      $('#typePulse').change(function(){
+        var valType = $(this).val();
+        var elmUnit = "";
+        elmUnit += '<option value="">- SELECT -</option>';
+
+        // LEVEL
+        if (valType == 0) {
+          elmUnit += '<option value="m3">m3</option>';
+          elmUnit += '<option value="bbl">bbl</option>';
+          elmUnit += '<option value="ltr">ltr</option>';
+          elmUnit += '<option value="gal">gal</option>';
+          elmUnit += '<option value="cm">cm</option>';
+          elmUnit += '<option value="mm">mm</option>';
+        } 
+        // PRESSURE
+        else if (valType == 1) {
+          elmUnit += '<option value="psi">psi</option>';
+          elmUnit += '<option value="bar">bar</option>';
+          elmUnit += '<option value="pascal">pascal</option>';
+          elmUnit += '<option value="kpascal">kpascal</option>';
+        }
+        // TEMPERATURE
+        else if (valType == 2) {
+          elmUnit += '<option value="c">c</option>';
+          elmUnit += '<option value="f">f</option>';
+          elmUnit += '<option value="k">k</option>';
+        }
+        // FLOW
+        else if (valType == 3) {
+          elmUnit += '<option value="lt">lt</option>';
+          elmUnit += '<option value="bbl">bbl</option>';
+          elmUnit += '<option value="gal">gal</option>';
+        }
+        // H2S
+        else if (valType == 4) {
+          elmUnit += '<option value="ppm">ppm</option>';
+          elmUnit += '<option value="%">%</option>';
+        }
+        // RPM
+        else if (valType == 5) {
+          elmUnit += '<option value="rpm">rpm</option>';
+        }
+        // GAS
+        else if (valType == 6) {
+          elmUnit += '<option value="mm">mm</option>';
+        }
+        // console.log($(this).val());
+
+        $('#unitPulse').html(elmUnit);
+      });
+    });
+</script>
+</body>
+</html>

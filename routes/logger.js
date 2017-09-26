@@ -19,6 +19,18 @@ router.get('/' , function(req, res, next) {
 	});	
 });
 
+router.get('/stream' , function(req, res, next) {
+	connectionReading.query("SELECT name_profile FROM app_control_sensor", function(err, rows){
+		if(err) {
+			console.log(err);
+		}
+
+		if(rows){
+			res.render('stream', {'result' : rows});	
+		}
+	});	
+});
+
 // function isAuth(req, res, next){
 // 	if (req.isAuthenticated()) {
 // 		return next();

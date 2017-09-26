@@ -24,8 +24,8 @@ function handler(req, res) {
 	})
 };
 
-var calcRawData = function(valueRaw, lowMA, highMA, lowValue, highValue, offset1) {
-	var resCalcRawData = ((((valueRaw + offset1) - lowMA) / (highMA - lowMA)) * (highValue - lowValue)) + lowValue;
+var calcRawData = function(valueRaw, lowMA, highMA, lowValue, highValue, offset1, coefficient) {
+	var resCalcRawData = (((((valueRaw + offset1) - lowMA) / (highMA - lowMA)) * (highValue - lowValue)) + lowValue) * coefficient;
 	return resCalcRawData;
 }
 
@@ -36,7 +36,7 @@ var calcRawRs485 = function(valueRaw, coefficient, offset1, offset2) {
 }
 
 var calcRawFlow = function(valueRaw, coefficient, offset1) {
-	var resCalcRawFlow = (60 *valueRaw * coefficient) + offset1;
+	var resCalcRawFlow = (60 * valueRaw * coefficient) + offset1;
 	return resCalcRawFlow;
 }
 
@@ -64,7 +64,7 @@ var pollingLoop = function() {
 				if (err) {
 					console.log(err);
 				}
-				connection.query('SELECT * FROM app_control_sensor')
+				connection.query('SELECT * FROM app_control_sensor ORDER BY type_inp')
 				.on('error', function(err) {
 					console.log(err);
 				})
@@ -167,6 +167,12 @@ var pollingLoop = function() {
 			} else {
 				cacheRawData = all_raw_data;	
 			}
+
+			var array_type = ['LEVEL', 'PRESSURE', 'TEMPERATURE', 'FLOW', 'H2S', 'RPM', 'GAS'];
+
+			var data_rs485 = {};
+
+			// var data_array_rs485 = [];
 			
 			for (var i = 0; i < data.control_sensor.length;  i++) {
 				var sensor_id = data.control_sensor[i].id;
@@ -207,12 +213,14 @@ var pollingLoop = function() {
 					var field_raw_data = 's'+sensor_chanel;
 					var sensor_valueRaw = data.raw_data[0][field_raw_data];
 					var sensor_dateRecorded = data.raw_data[0]['date_record'];
-					var sensor_value = calcRawData(sensor_valueRaw, sensor_lowMA, sensor_highMA, sensor_lowValue, sensor_highValue, sensor_offset1);
+					var sensor_value = calcRawData(sensor_valueRaw, sensor_lowMA, sensor_highMA, sensor_lowValue, sensor_highValue, sensor_offset1, sensor_coefficient);
+					data_process['analog_'+sensor_chanel] = [sensor_name, array_type[sensor_type]];
 				} else if (sensor_source == 2) {
 					var field_raw_rs485 = 's'+sensor_chanel;
 					var sensor_valueRaw = data.raw_rs485[0][field_raw_rs485];
 					var sensor_dateRecorded = data.raw_data[0]['date_record'];
 					var sensor_value = calcRawRs485(sensor_valueRaw, sensor_coefficient, sensor_offset1, sensor_offset2);
+					data_rs485[sensor_chanel] = [sensor_name, array_type[sensor_type]];
 				} else {
 					if (sensor_type == 3) {
 						var field_raw_flow_tot = 's'+sensor_chanel;
@@ -224,6 +232,7 @@ var pollingLoop = function() {
 						var sensor_valueRaw = data.raw_flow[0][field_raw_flow];
 						var sensor_dateRecorded = data.raw_data[0]['date_record'];
 						var sensor_value = calcRawFlow(sensor_valueRaw, sensor_coefficient, sensor_offset1);
+						data_process['pulse_'+sensor_chanel] = [sensor_name, array_type[sensor_type]];
 					}
 				}
 
@@ -248,8 +257,16 @@ var pollingLoop = function() {
 
 				data_process[sensor_name] = sensor_value.toFixed(sensor_decimal);
 
+				data_process.data_all_rs485 = data_rs485;
+
 				push_datas.push(push_data);
 			}
+
+			// RAW DATA BEFORE CALC / ORIGINAL FROM SENSORS
+			data_process.raw_data = all_raw_data[0];
+			data_process.raw_rs485 = all_raw_rs485[0];
+			data_process.raw_flow = all_raw_flow[0];
+			data_process.raw_flow_tot = all_raw_flow_tot[0];
 
 			data_process.push = push_datas;
 
@@ -258,7 +275,11 @@ var pollingLoop = function() {
 			});
 		}
 
-		pollingTimer = setTimeout(pollingLoop, POLLING_INTERVAL);
+		// console.log(connectionsArray.length);
+		if (connectionsArray.length > 0) {
+			pollingTimer = setTimeout(pollingLoop, POLLING_INTERVAL);	
+		}
+		
 	});		
 };
 
@@ -288,7 +309,10 @@ io.sockets.on('connection', function(socket) {
 		var socketIndex = connectionsArray.indexOf(socket);
 		console.log('socketID = %s got disconnected', socketIndex);
 		if (~socketIndex) {
+
 			connectionsArray.splice(socketIndex, 1);
+			console.log(connectionsArray);
+			console.log('lorem');
 		}
 	});
 

@@ -1,0 +1,1064 @@
+{
+  "1": {
+    "sensor_id": 1,
+    "sensor_name": "DEFROST",
+    "sensor_value": "32.70",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "c",
+    "sensor_type": 2
+  },
+  "2": {
+    "sensor_id": 2,
+    "sensor_name": "OIL DIFF 37",
+    "sensor_value": "3.58",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "psi",
+    "sensor_type": 1
+  },
+  "3": {
+    "sensor_id": 3,
+    "sensor_name": "GAS NH3 PROD A",
+    "sensor_value": "5.59",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "ppm",
+    "sensor_type": 4
+  },
+  "4": {
+    "sensor_id": 4,
+    "sensor_name": "LEVEL RECEIVER",
+    "sensor_value": "200.51",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "mm",
+    "sensor_type": 0
+  },
+  "5": {
+    "sensor_id": 5,
+    "sensor_name": "CS A",
+    "sensor_value": "-12.36",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "C",
+    "sensor_type": 2
+  },
+  "6": {
+    "sensor_id": 6,
+    "sensor_name": "CS B1",
+    "sensor_value": "30.24",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "C",
+    "sensor_type": 2
+  },
+  "7": {
+    "sensor_id": 7,
+    "sensor_name": "ABF 3",
+    "sensor_value": "33.64",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "C",
+    "sensor_type": 2
+  },
+  "8": {
+    "sensor_id": 8,
+    "sensor_name": "CS B2",
+    "sensor_value": "26.54",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "C",
+    "sensor_type": 2
+  },
+  "9": {
+    "sensor_id": 9,
+    "sensor_name": "ABF 2",
+    "sensor_value": "23.78",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "C",
+    "sensor_type": 2
+  },
+  "10": {
+    "sensor_id": 10,
+    "sensor_name": "GAS NH3 TE",
+    "sensor_value": "1.01",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "ppm",
+    "sensor_type": 4
+  },
+  "11": {
+    "sensor_id": 11,
+    "sensor_name": "ABF 1",
+    "sensor_value": "31.11",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "C",
+    "sensor_type": 2
+  },
+  "12": {
+    "sensor_id": 12,
+    "sensor_name": "RECEIVER",
+    "sensor_value": "13.30",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "bar",
+    "sensor_type": 1
+  },
+  "13": {
+    "sensor_id": 13,
+    "sensor_name": "PUMP NH3",
+    "sensor_value": "2.63",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "bar",
+    "sensor_type": 1
+  },
+  "14": {
+    "sensor_id": 14,
+    "sensor_name": "SEPARATOR",
+    "sensor_value": "0.22",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "bar",
+    "sensor_type": 1
+  },
+  "15": {
+    "sensor_id": 15,
+    "sensor_name": "COMP 39",
+    "sensor_value": "0.00",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "rpm",
+    "sensor_type": 5
+  },
+  "16": {
+    "sensor_id": 16,
+    "sensor_name": "RECEIVING",
+    "sensor_value": "24.16",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "C",
+    "sensor_type": 2
+  },
+  "17": {
+    "sensor_id": 17,
+    "sensor_name": "DEFROST",
+    "sensor_value": "32.70",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "C",
+    "sensor_type": 2
+  },
+  "18": {
+    "sensor_id": 18,
+    "sensor_name": "DEHEADING",
+    "sensor_value": "27.87",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "C",
+    "sensor_type": 2
+  },
+  "19": {
+    "sensor_id": 19,
+    "sensor_name": "PACKING",
+    "sensor_value": "28.43",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "C",
+    "sensor_type": 2
+  },
+  "20": {
+    "sensor_id": 20,
+    "sensor_name": "LEVEL WATER RO",
+    "sensor_value": "1947.00",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "mm",
+    "sensor_type": 0
+  },
+  "21": {
+    "sensor_id": 21,
+    "sensor_name": "COMP 38",
+    "sensor_value": "0.00",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "rpm",
+    "sensor_type": 5
+  },
+  "22": {
+    "sensor_id": 22,
+    "sensor_name": "COMP 37",
+    "sensor_value": "0.00",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "rpm",
+    "sensor_type": 5
+  },
+  "23": {
+    "sensor_id": 23,
+    "sensor_name": "COMP 36",
+    "sensor_value": "960.00",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "rpm",
+    "sensor_type": 5
+  },
+  "24": {
+    "sensor_id": 24,
+    "sensor_name": "LEVEL SEPARATOR",
+    "sensor_value": "56.61",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "cm",
+    "sensor_type": 0
+  },
+  "25": {
+    "sensor_id": 25,
+    "sensor_name": "OIL DIFF 39",
+    "sensor_value": "5.67",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "psi",
+    "sensor_type": 1
+  },
+  "26": {
+    "sensor_id": 26,
+    "sensor_name": "GAS NH3 PROD A",
+    "sensor_value": "5.59",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "ppm",
+    "sensor_type": 4
+  },
+  "27": {
+    "sensor_id": 27,
+    "sensor_name": "ICE MAKER",
+    "sensor_value": "0.00",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "rpm",
+    "sensor_type": 5
+  },
+  "28": {
+    "sensor_id": 28,
+    "sensor_name": "LEVEL RECEIVER",
+    "sensor_value": "200.51",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "mm",
+    "sensor_type": 0
+  },
+  "29": {
+    "sensor_id": 29,
+    "sensor_name": "LEVEL INTERCOLER",
+    "sensor_value": "634.80",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "mm",
+    "sensor_type": 0
+  },
+  "30": {
+    "sensor_id": 30,
+    "sensor_name": "TEMPERATURE",
+    "sensor_value": "-218.96",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "C",
+    "sensor_type": 2
+  },
+  "31": {
+    "sensor_id": 31,
+    "sensor_name": "OIL DIFF 38",
+    "sensor_value": "5.30",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "psi",
+    "sensor_type": 1
+  },
+  "32": {
+    "sensor_id": 32,
+    "sensor_name": "OIL DIFF 37",
+    "sensor_value": "3.58",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "psi",
+    "sensor_type": 1
+  },
+  "33": {
+    "sensor_id": 33,
+    "sensor_name": "OIL DIFF 36",
+    "sensor_value": "67.22",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "psi",
+    "sensor_type": 1
+  },
+  "34": {
+    "sensor_id": 34,
+    "sensor_name": "DISCHARGE 39",
+    "sensor_value": "-39.87",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "psi",
+    "sensor_type": 1
+  },
+  "35": {
+    "sensor_id": 35,
+    "sensor_name": "TEMP SEPARATOR",
+    "sensor_value": "22.92",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "C",
+    "sensor_type": 2
+  },
+  "36": {
+    "sensor_id": 36,
+    "sensor_name": "RPM DEFROST ",
+    "sensor_value": "0.00",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "rpm",
+    "sensor_type": 5
+  },
+  "37": {
+    "sensor_id": 37,
+    "sensor_name": "DISCHARGE 38",
+    "sensor_value": "-10.14",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "psi",
+    "sensor_type": 1
+  },
+  "38": {
+    "sensor_id": 38,
+    "sensor_name": "DISCHARGE 37",
+    "sensor_value": "80.83",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "psi",
+    "sensor_type": 1
+  },
+  "39": {
+    "sensor_id": 39,
+    "sensor_name": "DISCHARGE 36",
+    "sensor_value": "174.79",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "psi",
+    "sensor_type": 1
+  },
+  "40": {
+    "sensor_id": 40,
+    "sensor_name": "TEMP GAS SEP",
+    "sensor_value": "NaN",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "C",
+    "sensor_type": 2
+  },
+  "41": {
+    "sensor_id": 41,
+    "sensor_name": "PRESS INTERCOOLER",
+    "sensor_value": "NaN",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "bar",
+    "sensor_type": 1
+  },
+  "42": {
+    "sensor_id": 42,
+    "sensor_name": "SUCTION 39",
+    "sensor_value": "78.43",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "psi",
+    "sensor_type": 1
+  },
+  "43": {
+    "sensor_id": 43,
+    "sensor_name": "SUCTION 38",
+    "sensor_value": "2.91",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "psi",
+    "sensor_type": 1
+  },
+  "44": {
+    "sensor_id": 44,
+    "sensor_name": "SUCTION 37",
+    "sensor_value": "3.68",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "psi",
+    "sensor_type": 1
+  },
+  "45": {
+    "sensor_id": 45,
+    "sensor_name": "SUCTION 36",
+    "sensor_value": "3.44",
+    "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+    "sensor_unit": "psi",
+    "sensor_type": 1
+  },
+  "analog_25": [
+    "LEVEL SEPARATOR",
+    "LEVEL"
+  ],
+  "LEVEL SEPARATOR": 56.614597954682175,
+  "data_all_rs485": {
+    "1": [
+      "LEVEL WATER RO",
+      "LEVEL"
+    ],
+    "3": [
+      "LEVEL INTERCOLER",
+      "LEVEL"
+    ]
+  },
+  "LEVEL INTERCOLER": "634.8",
+  "analog_3": [
+    "LEVEL RECEIVER",
+    "LEVEL"
+  ],
+  "LEVEL RECEIVER": 200.51189245087903,
+  "LEVEL WATER RO": "1947",
+  "analog_5": [
+    "OIL DIFF 39",
+    "PRESSURE"
+  ],
+  "OIL DIFF 39": 5.673448739620221,
+  "analog_26": [
+    "SUCTION 36",
+    "PRESSURE"
+  ],
+  "SUCTION 36": 3.439898568750003,
+  "analog_10": [
+    "DISCHARGE 39",
+    "PRESSURE"
+  ],
+  "DISCHARGE 39": -39.86840960703454,
+  "analog_8": [
+    "OIL DIFF 36",
+    "PRESSURE"
+  ],
+  "OIL DIFF 36": 67.22420012179697,
+  "analog_7": [
+    "OIL DIFF 37",
+    "PRESSURE"
+  ],
+  "OIL DIFF 37": 3.5821880843907326,
+  "analog_6": [
+    "OIL DIFF 38",
+    "PRESSURE"
+  ],
+  "OIL DIFF 38": 5.301773356401387,
+  "analog_30": [
+    "SEPARATOR",
+    "PRESSURE"
+  ],
+  "SEPARATOR": 0.21835792318954844,
+  "analog_24": [
+    "PUMP NH3",
+    "PRESSURE"
+  ],
+  "PUMP NH3": 2.6342088404868673,
+  "analog_23": [
+    "RECEIVER",
+    "PRESSURE"
+  ],
+  "RECEIVER": 13.295645580589255,
+  "analog_32": [
+    "SUCTION 37",
+    "PRESSURE"
+  ],
+  "SUCTION 37": 3.6833441437500056,
+  "analog_15": [
+    "SUCTION 38",
+    "PRESSURE"
+  ],
+  "SUCTION 38": 2.908162181249992,
+  "analog_9": [
+    "SUCTION 39",
+    "PRESSURE"
+  ],
+  "SUCTION 39": 78.42754213125001,
+  "analog_50": [
+    "PRESS INTERCOOLER",
+    "PRESSURE"
+  ],
+  "PRESS INTERCOOLER": null,
+  "analog_27": [
+    "DISCHARGE 36",
+    "PRESSURE"
+  ],
+  "DISCHARGE 36": 174.79416612500003,
+  "analog_16": [
+    "DISCHARGE 37",
+    "PRESSURE"
+  ],
+  "DISCHARGE 37": 80.8286608125,
+  "analog_21": [
+    "DISCHARGE 38",
+    "PRESSURE"
+  ],
+  "DISCHARGE 38": -10.137736986664036,
+  "analog_1": [
+    "TEMP GAS SEP",
+    "TEMPERATURE"
+  ],
+  "TEMP GAS SEP": null,
+  "analog_38": [
+    "TEMPERATURE",
+    "TEMPERATURE"
+  ],
+  "TEMPERATURE": -218.95921361978125,
+  "analog_31": [
+    "TEMP SEPARATOR",
+    "TEMPERATURE"
+  ],
+  "TEMP SEPARATOR": 22.919310000712812,
+  "analog_2": [
+    "DEFROST",
+    "TEMPERATURE"
+  ],
+  "DEFROST": 32.6977634096457,
+  "analog_14": [
+    "ABF 2",
+    "TEMPERATURE"
+  ],
+  "ABF 2": 23.777360593705076,
+  "analog_11": [
+    "CS B2",
+    "TEMPERATURE"
+  ],
+  "CS B2": 26.54042924722991,
+  "analog_19": [
+    "RECEIVING",
+    "TEMPERATURE"
+  ],
+  "RECEIVING": 24.164814752042314,
+  "analog_17": [
+    "PACKING",
+    "TEMPERATURE"
+  ],
+  "PACKING": 28.434007362748766,
+  "analog_13": [
+    "ABF 3",
+    "TEMPERATURE"
+  ],
+  "ABF 3": 33.64404096570116,
+  "analog_12": [
+    "CS B1",
+    "TEMPERATURE"
+  ],
+  "CS B1": 30.237349178439345,
+  "analog_20": [
+    "DEHEADING",
+    "TEMPERATURE"
+  ],
+  "DEHEADING": 27.872796393852163,
+  "analog_29": [
+    "CS A",
+    "TEMPERATURE"
+  ],
+  "CS A": -12.358486549254899,
+  "analog_4": [
+    "ABF 1",
+    "TEMPERATURE"
+  ],
+  "ABF 1": 31.109375000000014,
+  "analog_28": [
+    "GAS NH3 PROD A",
+    "H2S"
+  ],
+  "GAS NH3 PROD A": 5.593551538837303,
+  "analog_22": [
+    "GAS NH3 TE",
+    "H2S"
+  ],
+  "GAS NH3 TE": 1.0081199479443628,
+  "pulse_3": [
+    "COMP 39",
+    "RPM"
+  ],
+  "COMP 39": 0,
+  "pulse_4": [
+    "COMP 38",
+    "RPM"
+  ],
+  "COMP 38": 0,
+  "pulse_1": [
+    "COMP 37",
+    "RPM"
+  ],
+  "COMP 37": 0,
+  "pulse_2": [
+    "COMP 36",
+    "RPM"
+  ],
+  "COMP 36": 960,
+  "pulse_6": [
+    "ICE MAKER",
+    "RPM"
+  ],
+  "ICE MAKER": 0,
+  "pulse_5": [
+    "RPM DEFROST ",
+    "RPM"
+  ],
+  "RPM DEFROST ": 0,
+  "calc_1": {
+    "sensor_id": 1,
+    "sensor_name": "Sample Addition",
+    "sensor_value": "2047.00",
+    "sensor_type": 7
+  },
+  "raw_data": {
+    "id": 1,
+    "date_record": "2017-09-19T09:25:14.000Z",
+    "s1": 0.0916,
+    "s2": 12.5416,
+    "s3": 14.2405,
+    "s4": 9.191,
+    "s5": 4.4162,
+    "s6": 4.3997,
+    "s7": 5.8493,
+    "s8": 11.8906,
+    "s9": 6.9073,
+    "s10": 7.866,
+    "s11": 9.1821,
+    "s12": 9.1249,
+    "s13": 9.1249,
+    "s14": 9.7416,
+    "s15": 4.5497,
+    "s16": 6.9823,
+    "s17": 12.5162,
+    "s18": 0.2912,
+    "s19": 12.9829,
+    "s20": 17.1829,
+    "s21": 4.5828,
+    "s22": 3.6494,
+    "s23": 5.9154,
+    "s24": 6.0578,
+    "s25": 14.2659,
+    "s26": 4.5663,
+    "s27": 9.9158,
+    "s28": 3.7156,
+    "s29": 6.4825,
+    "s30": 7.8749,
+    "s31": 12.7909,
+    "s32": 4.5739,
+    "s33": 0,
+    "s34": 0,
+    "s35": 0,
+    "s36": 0,
+    "s37": 0,
+    "s38": 0,
+    "s39": 0,
+    "s40": 0,
+    "s41": 0,
+    "s42": 0,
+    "s43": 0,
+    "s44": 0,
+    "s45": 0,
+    "s46": 0,
+    "s47": 0,
+    "s48": 0,
+    "s49": 0,
+    "s50": 0,
+    "s51": 0,
+    "s52": 0,
+    "s53": 0,
+    "s54": 0,
+    "s55": 0,
+    "s56": 0,
+    "s57": 0,
+    "s58": 0,
+    "s59": 0,
+    "s60": 0,
+    "s61": 0,
+    "s62": 0,
+    "s63": 0,
+    "s64": 0,
+    "source": "ADAM5KTCP"
+  },
+  "raw_rs485": {
+    "id_raw_485": 1,
+    "date_record": "2017-09-19T09:25:14.000Z",
+    "s1": "1/1947/2342",
+    "s3": "3/634.8/2342"
+  },
+  "raw_flow": {
+    "id": 1,
+    "date_record": "2017-09-19T09:25:10.000Z",
+    "s1": 0,
+    "s2": 16,
+    "s3": 0,
+    "s4": 0,
+    "s5": 0,
+    "s6": 0,
+    "s7": 0,
+    "s8": 0,
+    "s9": 0,
+    "s10": 0,
+    "s11": 0,
+    "s12": 0,
+    "s13": 0,
+    "s14": 0,
+    "s15": 0,
+    "s16": 0,
+    "source": null
+  },
+  "raw_flow_tot": {
+    "id": 1,
+    "date_record": "2017-09-19T09:25:12.000Z",
+    "s1": 9503679,
+    "s2": 5204930,
+    "s3": 10774754,
+    "s4": 7771408,
+    "s5": 1194979,
+    "s6": 453344,
+    "s7": 3467,
+    "s8": 0,
+    "s9": 876,
+    "s10": 0,
+    "s11": 2030,
+    "s12": 0,
+    "s13": 0,
+    "s14": 0,
+    "s15": 0,
+    "s16": 0,
+    "source": null
+  },
+  "push": [
+    {
+      "sensor_id": 24,
+      "sensor_name": "LEVEL SEPARATOR",
+      "sensor_value": "56.61",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "cm",
+      "sensor_type": 0
+    },
+    {
+      "sensor_id": 29,
+      "sensor_name": "LEVEL INTERCOLER",
+      "sensor_value": "634.80",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "mm",
+      "sensor_type": 0
+    },
+    {
+      "sensor_id": 4,
+      "sensor_name": "LEVEL RECEIVER",
+      "sensor_value": "200.51",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "mm",
+      "sensor_type": 0
+    },
+    {
+      "sensor_id": 20,
+      "sensor_name": "LEVEL WATER RO",
+      "sensor_value": "1947.00",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "mm",
+      "sensor_type": 0
+    },
+    {
+      "sensor_id": 28,
+      "sensor_name": "LEVEL RECEIVER",
+      "sensor_value": "200.51",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "mm",
+      "sensor_type": 0
+    },
+    {
+      "sensor_id": 25,
+      "sensor_name": "OIL DIFF 39",
+      "sensor_value": "5.67",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "psi",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 45,
+      "sensor_name": "SUCTION 36",
+      "sensor_value": "3.44",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "psi",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 34,
+      "sensor_name": "DISCHARGE 39",
+      "sensor_value": "-39.87",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "psi",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 33,
+      "sensor_name": "OIL DIFF 36",
+      "sensor_value": "67.22",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "psi",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 32,
+      "sensor_name": "OIL DIFF 37",
+      "sensor_value": "3.58",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "psi",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 31,
+      "sensor_name": "OIL DIFF 38",
+      "sensor_value": "5.30",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "psi",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 14,
+      "sensor_name": "SEPARATOR",
+      "sensor_value": "0.22",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "bar",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 13,
+      "sensor_name": "PUMP NH3",
+      "sensor_value": "2.63",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "bar",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 12,
+      "sensor_name": "RECEIVER",
+      "sensor_value": "13.30",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "bar",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 2,
+      "sensor_name": "OIL DIFF 37",
+      "sensor_value": "3.58",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "psi",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 44,
+      "sensor_name": "SUCTION 37",
+      "sensor_value": "3.68",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "psi",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 43,
+      "sensor_name": "SUCTION 38",
+      "sensor_value": "2.91",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "psi",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 42,
+      "sensor_name": "SUCTION 39",
+      "sensor_value": "78.43",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "psi",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 41,
+      "sensor_name": "PRESS INTERCOOLER",
+      "sensor_value": "NaN",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "bar",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 39,
+      "sensor_name": "DISCHARGE 36",
+      "sensor_value": "174.79",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "psi",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 38,
+      "sensor_name": "DISCHARGE 37",
+      "sensor_value": "80.83",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "psi",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 37,
+      "sensor_name": "DISCHARGE 38",
+      "sensor_value": "-10.14",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "psi",
+      "sensor_type": 1
+    },
+    {
+      "sensor_id": 40,
+      "sensor_name": "TEMP GAS SEP",
+      "sensor_value": "NaN",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "C",
+      "sensor_type": 2
+    },
+    {
+      "sensor_id": 30,
+      "sensor_name": "TEMPERATURE",
+      "sensor_value": "-218.96",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "C",
+      "sensor_type": 2
+    },
+    {
+      "sensor_id": 35,
+      "sensor_name": "TEMP SEPARATOR",
+      "sensor_value": "22.92",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "C",
+      "sensor_type": 2
+    },
+    {
+      "sensor_id": 1,
+      "sensor_name": "DEFROST",
+      "sensor_value": "32.70",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "c",
+      "sensor_type": 2
+    },
+    {
+      "sensor_id": 9,
+      "sensor_name": "ABF 2",
+      "sensor_value": "23.78",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "C",
+      "sensor_type": 2
+    },
+    {
+      "sensor_id": 8,
+      "sensor_name": "CS B2",
+      "sensor_value": "26.54",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "C",
+      "sensor_type": 2
+    },
+    {
+      "sensor_id": 16,
+      "sensor_name": "RECEIVING",
+      "sensor_value": "24.16",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "C",
+      "sensor_type": 2
+    },
+    {
+      "sensor_id": 17,
+      "sensor_name": "DEFROST",
+      "sensor_value": "32.70",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "C",
+      "sensor_type": 2
+    },
+    {
+      "sensor_id": 19,
+      "sensor_name": "PACKING",
+      "sensor_value": "28.43",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "C",
+      "sensor_type": 2
+    },
+    {
+      "sensor_id": 7,
+      "sensor_name": "ABF 3",
+      "sensor_value": "33.64",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "C",
+      "sensor_type": 2
+    },
+    {
+      "sensor_id": 6,
+      "sensor_name": "CS B1",
+      "sensor_value": "30.24",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "C",
+      "sensor_type": 2
+    },
+    {
+      "sensor_id": 18,
+      "sensor_name": "DEHEADING",
+      "sensor_value": "27.87",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "C",
+      "sensor_type": 2
+    },
+    {
+      "sensor_id": 5,
+      "sensor_name": "CS A",
+      "sensor_value": "-12.36",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "C",
+      "sensor_type": 2
+    },
+    {
+      "sensor_id": 11,
+      "sensor_name": "ABF 1",
+      "sensor_value": "31.11",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "C",
+      "sensor_type": 2
+    },
+    {
+      "sensor_id": 3,
+      "sensor_name": "GAS NH3 PROD A",
+      "sensor_value": "5.59",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "ppm",
+      "sensor_type": 4
+    },
+    {
+      "sensor_id": 10,
+      "sensor_name": "GAS NH3 TE",
+      "sensor_value": "1.01",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "ppm",
+      "sensor_type": 4
+    },
+    {
+      "sensor_id": 26,
+      "sensor_name": "GAS NH3 PROD A",
+      "sensor_value": "5.59",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "ppm",
+      "sensor_type": 4
+    },
+    {
+      "sensor_id": 15,
+      "sensor_name": "COMP 39",
+      "sensor_value": "0.00",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "rpm",
+      "sensor_type": 5
+    },
+    {
+      "sensor_id": 21,
+      "sensor_name": "COMP 38",
+      "sensor_value": "0.00",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "rpm",
+      "sensor_type": 5
+    },
+    {
+      "sensor_id": 22,
+      "sensor_name": "COMP 37",
+      "sensor_value": "0.00",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "rpm",
+      "sensor_type": 5
+    },
+    {
+      "sensor_id": 23,
+      "sensor_name": "COMP 36",
+      "sensor_value": "960.00",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "rpm",
+      "sensor_type": 5
+    },
+    {
+      "sensor_id": 27,
+      "sensor_name": "ICE MAKER",
+      "sensor_value": "0.00",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "rpm",
+      "sensor_type": 5
+    },
+    {
+      "sensor_id": 36,
+      "sensor_name": "RPM DEFROST ",
+      "sensor_value": "0.00",
+      "sensor_dateRecorded": "9/19/2017, 4:25:14 PM",
+      "sensor_unit": "rpm",
+      "sensor_type": 5
+    }
+  ],
+  "push_calc": [
+    {
+      "sensor_id": 1,
+      "sensor_name": "Sample Addition",
+      "sensor_variable": "{\"level_water_ro\":1}",
+      "sensor_variable_customize": "{\"const1\":100}",
+      "sensor_formula": "level_water_ro + const1",
+      "sensor_value": "2047.00"
+    }
+  ]
+}

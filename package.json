@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "interface": "node ./bin/www",
-    "service": "node ./service/service.js"
+    "service": "node ./service/service.js",
+    "servicev2": "node ./service/servicev2.js"
   },
   "dependencies": {
     "async": "^2.5.0",
@@ -29,5 +30,8 @@
     "Data",
     "Logger"
   ],
-  "author": "Wahyu Said"
+  "author": "Wahyu Said",
+  "devDependencies": {
+    "electron": "1.7.6"
+  }
 }

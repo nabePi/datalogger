@@ -15,8 +15,20 @@ router.get('/', isAuth , function(req, res, next) {
 		}
 
 		if (rows) {
-			console.log(rows);
 			res.render('reader', {'groups': rows, 'users_id': users_id});
+		}
+	});
+});
+
+router.get('/v2', isAuth , function(req, res, next) {
+	var users_id = req.user.id;
+	connection.query("SELECT * FROM groups", function(err, rows, field) {
+		if (err) {
+			console.log(err);
+		}
+
+		if (rows) {
+			res.render('readerv2', {'groups': rows, 'users_id': users_id});
 		}
 	});
 });
