@@ -17,6 +17,19 @@ router.get('/group', function(req, res, next){
 	});
 });
 
+router.get('/setupold', isAuth, function(req, res, next){
+	var id = req.user.id;
+	connection.query("SELECT dashboard.id, dashboard.users_id, dashboard._group, dashboard._sensor, dashboard._color, groups.`name` FROM dashboard INNER JOIN groups ON dashboard._group = groups.id AND dashboard.users_id = ?", [id], function(err, rows){
+		if(err) {
+			console.log(err);
+		}
+		if (rows) {
+			res.render('dashboard_setup', {'results':rows});
+		}
+	});	
+});
+
+
 router.get('/setup', isAuth, function(req, res, next){
 	var id = req.user.id;
 	// connection.query("SELECT dashboard.id, dashboard.users_id, dashboard._group, dashboard._sensor, dashboard._color, groups.`name` FROM dashboard INNER JOIN groups ON dashboard._group = groups.id AND dashboard.users_id = ?", [id], function(err, rows){
@@ -65,14 +78,32 @@ router.delete('/setup/delete', function(req, res, next) {
 });
 
 router.delete('/group/delete', function(req, res, next) {
-	connection.query("DELETE FROM groups WHERE id = ?", [req.body.id], function(err, result) {
+	connection.query("DELETE FROM groups WHERE id = ?", [req.body.id], function(error, result) {
+		if (error) {
+			console.log(error);
+		}
+		if (result.affectedRows) {
+  			connection.query("DELETE FROM dashboard WHERE _group = ?", [req.body.id], function(err, rslt) {
+				if (err) {
+					console.log(err);
+				}
+				if (rslt) {
+					res.send(true);
+		  		}	
+			});
+  		}
+		
+	});
+});
+
+router.get('/group/empty/:id', function(req, res, next) {
+	connection.query("DELETE FROM dashboard WHERE _group = ?", [req.params.id], function(err, rslt) {
 		if (err) {
 			console.log(err);
 		}
-		if (result.affectedRows) {
-  			res.send(true);
-  		}
-		
+		if (rslt) {
+			res.send(true);
+  		}	
 	});
 });
 
@@ -145,16 +176,38 @@ router.post('/group/v2', function(req, res, next) {
 
 	var sql = "INSERT INTO dashboard (_sensor, _group, users_id, is_calc) VALUES ?";
 
-	connection.query(sql, [multipleArray], function (error, results, fields) {
-  		if (error) throw error;
-  		if (results.affectedRows) {
-  			res.send(true);
-  		}
+	connection.query("DELETE FROM dashboard WHERE _group = ?", groupV, function(err, rslt) {
+		if (err) {
+			console.log(err);
+		}
+		if (rslt) {
+  			connection.query(sql, [multipleArray], function (error, results, fields) {
+		  		if (error) throw error;
+		  		if (results.affectedRows) {
+		  			res.send(true);
+		  		}
+			});
+  		}	
 	});
 })
 
-router.get('/', isAuth, function(req, res, next) {
+router.get('/getsensors/:id', isAuth, function(req, res, next) {
+	var id = req.params.id;
+	connection.query("SELECT * FROM dashboard WHERE _group = ?", [id], function(error, rows) {
+		if (error){
+			console.log(error);
+		}
+
+		if (rows) {
+			console.log(rows);
+			res.send(rows);
+		}
+	})
+});
+
+router.get('/groupid/:id', isAuth, function(req, res, next) {
 	var id = req.user.id;
+	var groupId = req.params.id;
 	var arrayGroup = [];
 	
 	
@@ -184,7 +237,7 @@ router.get('/', isAuth, function(req, res, next) {
 							if (arrayGroupValue.length == rows.length) {
 								console.log('send');
 							}
-							res.render('dashboardv2', {'arrayGV' : arrayGroupValue, 'groupSensor' : rows, 'countArrayGV' : arrayGroupValue.length});
+							res.render('dashboardv2', {'arrayGV' : arrayGroupValue, 'groupSensor' : rows, 'countArrayGV' : arrayGroupValue.length, 'groupId' : groupId});
 
 						}	
 					}

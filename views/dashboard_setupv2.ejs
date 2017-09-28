@@ -66,13 +66,17 @@
 
     <div class="container">
         <div class="row" >
+            <div class="col-md12">
+                <a href="/dashboard/setupold" class="btn btn-success" style="display: none;">List Sensors By Groups</a>
+                <hr>
+            </div>
             <div class="col-md-6" >
                 <h4>ALL SENOSORS</h4> 
                 <div class="frame_overflow">    
-                    <div id="drag-elements">
+                    <div id="drag-elements" style="height: calc(50vw - 340px);">
                         <% var flagForArray = 0 %>
                         <% for(var i = 0; i < sensors_raw.length; i++) {%>
-                        <div>
+                        <div id="sensors_raw_<%=sensors_raw[i].id%>">
                             <a href="javascript:void(0)" class="btn btn-primary btn-large" data-id="<%=sensors_raw[i].id%>" data-calc="0"><%=sensors_raw[i].name%></a>
                             <input type="hidden" name="save_dd[<%=flagForArray%>]" value="<%=sensors_raw[i].id%>,0" >
                         </div>
@@ -80,9 +84,9 @@
                         <% } %>
 
                         <% for(var i = 0; i < sensors_calc.length; i++) {%>
-                        <div>
+                        <div id="sensors_calc_<%=sensors_calc[i].id%>">
                             <a href="javascript:void(0)" class="btn btn-info btn-large" data-id="<%=sensors_calc[i].id%>" data-calc="1"><%=sensors_calc[i].name%></a>
-                            <input type="hidden" name="save_dd[<%=flagForArray%>]" value="<%=sensors_raw[i].id%>,1" >
+                            <input type="hidden" name="save_dd[<%=flagForArray%>]" value="<%=sensors_calc[i].id%>,1" >
                         </div>
                         <% flagForArray++ %>
                         <% } %>
@@ -100,7 +104,7 @@
                 <div class="well" style="background: #c2c2c2">
                     <div class="form-group">
                         <label for="type" class="col-sm-2 control-label">GROUPS</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-4">
                             <select class="form-control" id="group" name="group" required>
                                 <option value="">- SELECT -</option>
                                 <% for(var i = 0; i < groups.length; i++) {%>
@@ -110,6 +114,9 @@
                         </div>
                         <div class="col-sm-3">
                             <button type="button" onclick="ddAction()" class="btn btn-block btn-success">Submit</button>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" onclick="ddEmptyAction()" class="btn btn-block btn-danger" id="ddEmpty" style="display: none;">Empty</button>
                         </div>
                     </div>
                 </div>
@@ -125,6 +132,12 @@
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<!-- Need for electron -->
+<script>
+    try {
+        $ = jQuery = module.exports;
+    } catch(e) {}
+</script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.15/datatables.min.js"></script>
 <script type="text/javascript" src="/javascripts/dragula/dragula.js"></script>
@@ -145,33 +158,115 @@
         }
     });
 
+    function ddEmptyAction() {
+        var ddGroup = $("#group").val()
+        var ddData = $('#drop-target input[type="hidden"]');
+        if(ddGroup != '') {
+            if(ddData.length > 0) {
+                
+                $.ajax({
+                    url:'/dashboard/group/empty/'+ddGroup,
+                    type:'GET',
+                    success:function(res){
+                        if (res) {
+                            document.location.href = '/dashboard/setup'; 
+                        }
+                    }
+                });
+
+            } else {
+                alert("No sensor in this group");
+            }
+            
+        } else {
+            alert("Please select group");
+        }
+          
+    }
+
     function ddAction(){
         var ddGroup = $("#group").val()
         var ddData = $('#display input[type="hidden"]');
         var arrayY = []
-        for (var i = 0;  i < ddData.length; i++) {
-            var arrayX = []
-            var getValue = ddData[i].value.split(',');
-            var sensor_id = getValue[0];
-            var is_calc = getValue[1]
-            arrayX = [sensor_id, is_calc];
-            console.log(arrayX);
-            arrayY.push(arrayX);
-        }
-        console.log(arrayY);
-        var foo_array = JSON.stringify(arrayY);
-
-         $.ajax({
-            url:'/dashboard/group/v2',
-            type:'POST',
-            data: 'group='+ddGroup+'&foo_array='+foo_array,
-            success:function(res){
-                if (res) {
-                    document.location.href = '/dashboard'; 
+        
+        if(ddGroup != '') {
+            if(ddData.length > 0) {
+                for (var i = 0;  i < ddData.length; i++) {
+                    var arrayX = []
+                    var getValue = ddData[i].value.split(',');
+                    var sensor_id = getValue[0];
+                    var is_calc = getValue[1]
+                    arrayX = [sensor_id, is_calc];
+                    console.log(arrayX);
+                    arrayY.push(arrayX);
                 }
+                console.log(arrayY);
+                var foo_array = JSON.stringify(arrayY);
+
+                 $.ajax({
+                    url:'/dashboard/group/v2',
+                    type:'POST',
+                    data: 'group='+ddGroup+'&foo_array='+foo_array,
+                    success:function(res){
+                        if (res) {
+                            document.location.href = '/dashboard/groupid/0'; 
+                        }
+                    }
+                });
+            } else {
+                alert("No sensor added to group");
             }
-        });
+            
+        } else {
+            alert("Please select group");
+        }
     }
+
+    $(document).ready(function(){
+        var valElementDDOriginal = $('#drag-elements').html();
+
+        $('#group').change(function(){
+            // Re-Show after manipulate
+            $('#drag-elements').html(valElementDDOriginal);
+
+            var valGroup = $(this).val();
+            if (valGroup != '') {
+                $.ajax({
+                    url:'/dashboard/getsensors/'+valGroup,
+                    type:'GET',
+                    success:function(res){
+                        console.log(res);
+                        var valElementDD = '';
+                        if (res.length > 0) {
+                            $('#ddEmpty').show();
+                            for (var i = 0;  i < res.length; i++) {
+                                if (res[i].is_calc == 0) {
+                                    valElementDD += '<div id="sensors_raw_'+res[i]._sensor+'">';
+                                    valElementDD += $('#sensors_raw_'+res[i]._sensor).html();
+                                    valElementDD += '</div>';
+                                    $('#sensors_raw_'+res[i]._sensor).remove();
+                                } else {
+                                    valElementDD += '<div id="sensors_calc_'+res[i]._sensor+'">';
+                                    valElementDD += $('#sensors_calc_'+res[i]._sensor).html();
+                                    valElementDD += '</div>';
+                                    $('#sensors_calc_'+res[i]._sensor).remove();
+                                }
+                            }
+                        } else {
+                            $('#ddEmpty').hide();
+                        }
+                        console.log(valElementDD);
+                        $('#drop-target').html(valElementDD);
+                    }
+                });
+            } else {
+                $('#ddEmpty').hide();
+                $('#drop-target').html('');
+            }
+
+        });
+
+    });
 </script>
 </body>
 </html>

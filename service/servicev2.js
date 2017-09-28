@@ -222,16 +222,16 @@ var pollingLoop = function() {
 				var sensors_raw_linearity = data.all_sensors_raw[i].linearity;
 				var sensors_raw_offset = data.all_sensors_raw[i].offset;
 
-				if (sensors_raw_low_ma_calibration != null && sensors_raw_low_ma_calibration != 0) {
+				if (sensors_raw_low_ma_calibration != null) {
 					sensors_raw_low_ma = sensors_raw_low_ma_calibration;
 				}
-				if (sensors_raw_high_ma_calibration != null && sensors_raw_high_ma_calibration != 0) {
+				if (sensors_raw_high_ma_calibration != null) {
 					sensors_raw_high_ma = sensors_raw_high_ma_calibration;
 				}
-				if (sensors_raw_value_min_calibration != null && sensors_raw_value_min_calibration != 0) {
+				if (sensors_raw_value_min_calibration != null) {
 					sensors_raw_value_min = sensors_raw_value_min_calibration;
 				}
-				if (sensors_raw_value_max_calibration != null && sensors_raw_value_max_calibration != 0) {
+				if (sensors_raw_value_max_calibration != null) {
 					sensors_raw_value_max = sensors_raw_value_max_calibration;
 				}
 
@@ -258,7 +258,7 @@ var pollingLoop = function() {
 						var sensor_valueRaw = data.raw_flow[0][field_raw_flow];
 						var sensor_dateRecorded = data.raw_data[0]['date_record'];
 						var sensor_value = calcRawFlow(sensor_valueRaw, sensors_raw_offset);
-						data_process['pulse_'+sensors_raw_chanel] = [sensors_raw_name, array_type[sensors_raw_type]];
+						data_process['pulse_'+sensors_raw_chanel] = [sensors_raw_name, array_type[sensors_raw_type], sensors_raw_id];
 					}
 				}
 

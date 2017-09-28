@@ -444,9 +444,14 @@
                 padding: 0 20px;
                 font-family: bebas;    
             }
+                .value small.smallest{font-size: 35%;bottom:-5px;right:0px;margin-top:20px;position: absolute;}
+                .value small.smallest_2{font-size: 30%;}
+                /*.value small:before{content: 'KPASCAL';}*/
                 .value small{font-size: 70%}
+
                 .value p{
                     margin: 0;
+                    line-height: normal;
                 }
                 .card .title p, .card .value p{
                     margin:0;

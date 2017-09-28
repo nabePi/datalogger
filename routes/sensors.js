@@ -10,6 +10,43 @@ router.get('/', function(req, res, next) {
 	res.render('sensorsv2');
 });
 
+// ===========
+// SENSORS RAW
+// ===========
+
+router.get('/raw/v2/edit/:id', function(req, res, next) {
+	var id = req.params.id;
+	console.log(id);
+	connection.query("SELECT * FROM sensors_raw WHERE id = ?", [id], function(err, rows) {
+		if (err) {
+			console.log(err);
+		}
+		res.send(rows);
+	});
+});
+
+router.get('/raw/v2/delete/:id', function(req, res, next) {
+	console.log("DELETE RAW");
+	connection.query("DELETE FROM sensors_raw WHERE id = ?", [req.params.id], function(err, result) {
+		if (err) {
+			console.log(err);
+		}
+		if (result.affectedRows) {
+  			// Deleted record dashbord
+			connection.query("DELETE FROM dashboard WHERE _sensor = ? AND is_calc = 0", [req.params.id], function(error, rslt) {
+				if (error) {
+					console.log(error);
+				}
+				if (rslt) {
+					res.send(true);
+				}
+			});
+  		}
+		
+	});
+});
+
+
 // ============
 // ANALOG ROUTE
 // ============
@@ -44,6 +81,23 @@ router.post('/', function(req, res, next) {
 	}
 	valueSensor.linearity = linearity;
 
+	// nullable for wamp
+	if (valueSensor.low_ma_calibration == '') { 
+		valueSensor.low_ma_calibration = null;
+	}
+	if (valueSensor.high_ma_calibration == '') {
+		valueSensor.high_ma_calibration = null;
+	}
+	if (valueSensor.value_min_calibration == '') {
+		valueSensor.value_min_calibration = null;
+	}
+	if (valueSensor.value_max_calibration == '') {
+		valueSensor.value_max_calibration = null;
+	}
+	if (valueSensor.offset == '') {
+		valueSensor.offset = null;
+	}
+
 	console.log(valueSensor);
 
 	connection.query('INSERT INTO sensors_raw SET ?', valueSensor, function (error, results, fields) {
@@ -59,7 +113,7 @@ router.put('/:id', function(req, res, next) {
 	var valueSensor = {};
 
 	valueSensor.name = req.body.name;
-	valueSensor.source = req.body.source;
+	// valueSensor.source = req.body.source;
 	// valueSensor.chanel = req.body.chanel;
 	valueSensor.type = req.body.type;
 	
@@ -84,6 +138,23 @@ router.put('/:id', function(req, res, next) {
 	}
 	valueSensor.linearity = linearity;
 
+	// nullable for wamp
+	if (valueSensor.low_ma_calibration == '') { 
+		valueSensor.low_ma_calibration = null;
+	}
+	if (valueSensor.high_ma_calibration == '') {
+		valueSensor.high_ma_calibration = null;
+	}
+	if (valueSensor.value_min_calibration == '') {
+		valueSensor.value_min_calibration = null;
+	}
+	if (valueSensor.value_max_calibration == '') {
+		valueSensor.value_max_calibration = null;
+	}
+	if (valueSensor.offset == '') {
+		valueSensor.offset = null;
+	}
+
 	console.log(valueSensor);
 
 	var querySql = 'UPDATE sensors_raw SET ? WHERE id = '+req.params.id;
@@ -96,29 +167,6 @@ router.put('/:id', function(req, res, next) {
 	});
 });
 
-router.get('/analog/v2/edit/:id', function(req, res, next) {
-	var id = req.params.id;
-	console.log(id);
-	connection.query("SELECT * FROM sensors_raw WHERE id = ?", [id], function(err, rows) {
-		if (err) {
-			console.log(err);
-		}
-		res.send(rows);
-	});
-});
-
-router.get('/analog/v2/delete/:id', function(req, res, next) {
-	console.log("DELETE ANALOG");
-	connection.query("DELETE FROM sensors_raw WHERE id = ?", [req.params.id], function(err, result) {
-		if (err) {
-			console.log(err);
-		}
-		if (result.affectedRows) {
-  			res.send(true);
-  		}
-		
-	});
-});
 
 // =====================
 // DIGITAL / PULSE ROUTE
@@ -140,10 +188,47 @@ router.post('/pulse', function(req, res, next) {
 
 	valueSensor.offset = req.body.offsetPulse;
 
+	// nullable for wamp
+	if (valueSensor.offset == '') {
+		valueSensor.offset = null;
+	}
 
 	console.log(valueSensor);
 
 	connection.query('INSERT INTO sensors_raw SET ?', valueSensor, function (error, results, fields) {
+  		if (error) throw error;
+  		if (results.affectedRows) {
+  			res.redirect('/sensors');
+  		}
+	});
+});
+
+router.put('/pulse/:id', function(req, res, next) {
+	
+	var valueSensor = {};
+
+	valueSensor.name = req.body.namePulse;
+	// valueSensor.source = req.body.sourcePulse;
+	// valueSensor.chanel = req.body.chanelPulseHidden;
+	valueSensor.type = req.body.typePulse;
+	
+	valueSensor.value_min = req.body.minValuePulse;
+	valueSensor.value_max = req.body.maxValuePulse;
+
+	valueSensor.unit = req.body.unitPulse;
+
+	valueSensor.offset = req.body.offsetPulse;
+
+	// nullable for wamp
+	if (valueSensor.offset == '') {
+		valueSensor.offset = null;
+	}
+
+	console.log(valueSensor);
+
+	var querySql = 'UPDATE sensors_raw SET ? WHERE id = '+req.params.id;
+
+	connection.query(querySql, valueSensor, function (error, results, fields) {
   		if (error) throw error;
   		if (results.affectedRows) {
   			res.redirect('/sensors');
@@ -194,9 +279,16 @@ router.get('/calc/delete/:id', function(req, res, next) {
 			console.log(err);
 		}
 		if (result.affectedRows) {
-  			res.send(true);
+			// Deleted record dashbord
+			connection.query("DELETE FROM dashboard WHERE _sensor = ? AND is_calc = 1", [req.params.id], function(error, rslt) {
+				if (error) {
+					console.log(error);
+				}
+				if (rslt) {
+					res.send(true);
+				}
+			});
   		}
-		
 	});
 });
 

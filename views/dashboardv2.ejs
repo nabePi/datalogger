@@ -27,19 +27,20 @@
                     </a>
                 </li>
 
-                <li class="dropdown-header">CATEGORY</li>
+                <li class="dropdown-header">GROUPS</li>
+                
+                <% for(var i=0; i<groupSensor.length; i++) { 
+                    var keyGroup = groupSensor[i]._group;
+                    var actived = ''
+                    if(i == 0){
+                        actived = 'active'
+                    }
+                %>
                 <li>
-                    <a href="#">Main</a>
+                    <a href="/dashboard/groupid/<%=groupSensor[i]._group %>"><%=groupSensor[i].name %></a>
                 </li>
-                <li>
-                    <a href="#">Operator</a>
-                </li>
-                <li>
-                    <a href="#">Supervisor</a>
-                </li>
-                <li>
-                    <a href="#">Logger</a>
-                </li>
+                <% } %>
+
                 <li role="separator" class="divider"></li>
                 <li class="dropdown-header" >MENU</li>
                 <!-- <li class="dropdown">
@@ -54,20 +55,25 @@
                   </ul>
                 </li> -->
                 <li>
-                    <a href="#">Setup Dashboard</a>
+                    <a href="/dashboard/setup">Setup Dashboard</a>
                 </li>
                 <li>
-                    <a href="#">Logger</a>
+                    <a href="/sensors">Sensors</a>
                 </li>
                 <li>
-                    <a href="#">Groups</a>
+                    <a href="/reader/v2">Reading</a>
                 </li>
                 <li>
-                    <a href="#">User</a>
+                    <a href="/logger">Logger</a>
                 </li>
-                <li role="separator" class="divider"></li>
                 <li>
-                    <a href="#">Logout</a>
+                    <a href="/dashboard/group">Groups</a>
+                </li>
+                <li>
+                    <a href="/users">Users</a>
+                </li>
+                <li>
+                    <a href="/auth/signout">Sign Out</a>
                 </li>
 
                 
@@ -124,8 +130,20 @@
 
                     </ul>
 
-                    <input type="hidden" name="arrayGT" id="arrayGT" value="<%=arrayGroupTemp %>">
-                        
+                    <%
+                        if(groupId == 0){
+                            var selectorGroup = arrayGroupTemp[0];
+                        } else {
+                            var selectorGroup = groupId;    
+                        }    
+                    %>
+
+                    <!-- OLD DESIGN -->
+                    <!-- <input type="hidden" name="arrayGT" id="arrayGT" value="<%=arrayGroupTemp %>"> -->
+
+                    <!-- NEW DESIGN -->
+                    <input type="hidden" name="arrayGT" id="arrayGT" value="<%=selectorGroup %>">
+                                            
                     <div class="tab-content" id="groupIdKey">
 
                         <% for(var i=0; i<groupSensor.length; i++) { 
@@ -202,6 +220,9 @@
         var socket = io.connect('http://localhost:8001');
         socket.on('notification', function(res) {
             var splitTemp = $('#arrayGT').val();
+
+            console.log(splitTemp);
+
             var _splitTemp = splitTemp.split(',');
             // console.log(_splitTemp);
             // console.log(res.data);
@@ -271,58 +292,66 @@
                         element += '<div class="row">';
                     }
 
+                    // Condition sensor not found coz sensors deleted
+                    if (typeof res.data[sensor_id] !== 'undefined'){
+                        if(fooTest[x].is_calc == 0){
+                            // Sensor Raw
+                            element += '<div class="col-md-3" style="padding: 8px;">';
+                            element += '<div class="card '+ colorCard[res.data[sensor_id].sensor_type] +' jscolor">';
+                            // element += '<div class="btn_setting"><a href="" class="  "><i class="glyphicon glyphicon-cog"></i></a></div>';
+                            element += '<div class="title-card">';
+                            element += '<p>'+res.data[sensor_id].sensor_name+'</p>';
+                            element += '</div>';
+                            element += '<div class="value-card">'
+                            element += '<p>'+res.data[sensor_id].sensor_value+' <small>'+res.data[sensor_id].sensor_unit+'</small></p>';
+                            element += '</div>';
+                            element += '</div>';
+                            element += '</div>';
 
-                    if(fooTest[x].is_calc == 0){
-                        // Sensor Raw
-                        element += '<div class="col-md-3" style="padding: 8px;">';
-                        element += '<div class="card '+ colorCard[res.data[sensor_id].sensor_type] +' jscolor">';
-                        // element += '<div class="btn_setting"><a href="" class="  "><i class="glyphicon glyphicon-cog"></i></a></div>';
-                        element += '<div class="title-card">';
-                        element += '<p>'+res.data[sensor_id].sensor_name+'</p>';
-                        element += '</div>';
-                        element += '<div class="value-card">'
-                        element += '<p>'+res.data[sensor_id].sensor_value+' <small>'+res.data[sensor_id].sensor_unit+'</small></p>';
-                        element += '</div>';
-                        element += '</div>';
-                        element += '</div>';
+                            // autoElement Raw
+                            // condiion for unit have length > 5 char
+                            var unitSpecialClass = '';
+                            if(res.data[sensor_id].sensor_unit.length > 5) {
+                                unitSpecialClass = 'smallest_2';
+                            }
 
-                        // autoElement Raw
-                        autoElement += '<div class="cell-'+countData+'">'
-                        autoElement += '<div class="card '+ colorCard[res.data[sensor_id].sensor_type] +'">'
-                        autoElement += '<div class="title">'
-                        autoElement += '<p>'+res.data[sensor_id].sensor_name+'</p>';
-                        autoElement += '</div>'
-                        autoElement += '<div class="value">'
-                        autoElement += '<p>'+res.data[sensor_id].sensor_value+' <small>'+res.data[sensor_id].sensor_unit+'</small></p>';
-                        autoElement += '</div>'
-                        autoElement += '</div>'
-                        autoElement += '</div>'
+                            autoElement += '<div class="cell-'+countData+'">'
+                            autoElement += '<div class="card '+ colorCard[res.data[sensor_id].sensor_type] +'">'
+                            autoElement += '<div class="title">'
+                            autoElement += '<p>'+res.data[sensor_id].sensor_name+'</p>';
+                            autoElement += '</div>'
+                            autoElement += '<div class="value">'
+                            autoElement += '<p>'+res.data[sensor_id].sensor_value+' <small class="'+unitSpecialClass+'">'+res.data[sensor_id].sensor_unit+'</small></p>';
+                            autoElement += '</div>'
+                            autoElement += '</div>'
+                            autoElement += '</div>'
 
-                    } else {
-                        // Sensor Calc
-                        element += '<div class="col-md-3" style="padding: 8px;">';
-                        element += '<div class="card '+ colorCard[res.data[sensor_id].sensor_type] +' jscolor">';
-                        // element += '<div class="btn_setting"><a href="" class="  "><i class="glyphicon glyphicon-cog"></i></a></div>';
-                        element += '<div class="title-card">';
-                        element += '<p>'+res.data[sensor_id].sensor_name+'</p>';
-                        element += '</div>';
-                        element += '<div class="value-card">'
-                        element += '<p>'+res.data[sensor_id].sensor_value+'</p>';
-                        element += '</div>';
-                        element += '</div>';
-                        element += '</div>';
+                        } else {
+                            // Sensor Calc
+                            element += '<div class="col-md-3" style="padding: 8px;">';
+                            element += '<div class="card '+ colorCard[res.data[sensor_id].sensor_type] +' jscolor">';
+                            // element += '<div class="btn_setting"><a href="" class="  "><i class="glyphicon glyphicon-cog"></i></a></div>';
+                            element += '<div class="title-card">';
+                            element += '<p>'+res.data[sensor_id].sensor_name+'</p>';
+                            element += '</div>';
+                            element += '<div class="value-card">'
+                            element += '<p>'+res.data[sensor_id].sensor_value+'</p>';
+                            element += '</div>';
+                            element += '</div>';
+                            element += '</div>';
 
-                        // autoElement Calc
-                        autoElement += '<div class="cell-'+countData+'">'
-                        autoElement += '<div class="card '+ colorCard[res.data[sensor_id].sensor_type] +'">'
-                        autoElement += '<div class="title">'
-                        autoElement += '<p>'+res.data[sensor_id].sensor_name+'</p>'
-                        autoElement += '</div>'
-                        autoElement += '<div class="value">'
-                        autoElement += '<p>'+res.data[sensor_id].sensor_value+'</p>';
-                        autoElement += '</div>'
-                        autoElement += '</div>'
-                        autoElement += '</div>'
+                            // autoElement Calc
+                            autoElement += '<div class="cell-'+countData+'">'
+                            autoElement += '<div class="card '+ colorCard[res.data[sensor_id].sensor_type] +'">'
+                            autoElement += '<div class="title">'
+                            autoElement += '<p>'+res.data[sensor_id].sensor_name+'</p>'
+                            autoElement += '</div>'
+                            autoElement += '<div class="value">'
+                            autoElement += '<p>'+res.data[sensor_id].sensor_value+'</p>';
+                            autoElement += '</div>'
+                            autoElement += '</div>'
+                            autoElement += '</div>'
+                        }
                     }
 
                     if (repeat == 3) {

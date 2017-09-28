@@ -1,0 +1,12 @@
+// changelog
+
+# table sensors_raw
+- add nullable calibration field and offset
+- set nullable in sensors.js -> replace '' to null
+
+# table dashboard 
+- add nullable _color
+
+# sensor analog deleted dashboard deleted
+
+# Deleted Group / dashboard deleted
