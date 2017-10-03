@@ -1,0 +1,3 @@
+For windows-regisrty [node module]
+Run as administrator for node powershell
+npm install --g --production windows-build-tools

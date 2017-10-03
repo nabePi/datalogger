@@ -221,7 +221,7 @@
         socket.on('notification', function(res) {
             var splitTemp = $('#arrayGT').val();
 
-            console.log(splitTemp);
+            // console.log(splitTemp);
 
             var _splitTemp = splitTemp.split(',');
             // console.log(_splitTemp);
@@ -276,7 +276,7 @@
                 else if(countData <= 90)
                     countData = 90
                 
-                console.log(fooTest.length);
+                // console.log(fooTest.length);
 
                 for (var x = 0; x < fooTest.length; x++) {
                     
@@ -286,7 +286,6 @@
                         var sensor_id = 'calc_'+fooTest[x]._sensor;
                     }
 
-                    // console.log(res.data[sensor_id]);
 
                     if (repeat == 0) {
                         element += '<div class="row">';
@@ -294,6 +293,11 @@
 
                     // Condition sensor not found coz sensors deleted
                     if (typeof res.data[sensor_id] !== 'undefined'){
+
+                        // THIS IS VARIABLE VALUE
+                        var valueFix = (fooTest[x]._settozero > 0) ? (res.data[sensor_id].sensor_value < 0) ? 0 : res.data[sensor_id].sensor_value.toFixed(fooTest[x]._decimal) : res.data[sensor_id].sensor_value.toFixed(fooTest[x]._decimal);
+                        
+
                         if(fooTest[x].is_calc == 0){
                             // Sensor Raw
                             element += '<div class="col-md-3" style="padding: 8px;">';
@@ -321,7 +325,7 @@
                             autoElement += '<p>'+res.data[sensor_id].sensor_name+'</p>';
                             autoElement += '</div>'
                             autoElement += '<div class="value">'
-                            autoElement += '<p>'+res.data[sensor_id].sensor_value+' <small class="'+unitSpecialClass+'">'+res.data[sensor_id].sensor_unit+'</small></p>';
+                            autoElement += '<p>'+ valueFix +' <small class="'+unitSpecialClass+'">'+res.data[sensor_id].sensor_unit+'</small></p>';
                             autoElement += '</div>'
                             autoElement += '</div>'
                             autoElement += '</div>'
@@ -347,7 +351,7 @@
                             autoElement += '<p>'+res.data[sensor_id].sensor_name+'</p>'
                             autoElement += '</div>'
                             autoElement += '<div class="value">'
-                            autoElement += '<p>'+res.data[sensor_id].sensor_value+'</p>';
+                            autoElement += '<p>'+valueFix+'</p>';
                             autoElement += '</div>'
                             autoElement += '</div>'
                             autoElement += '</div>'

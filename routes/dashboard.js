@@ -29,6 +29,32 @@ router.get('/setupold', isAuth, function(req, res, next){
 	});	
 });
 
+router.get('/setupold/:id', function(req, res, next) {
+	var id = req.params.id;
+	connection.query("SELECT * FROM dashboard WHERE id = ?", [id], function(err, rows, field) {
+		if (err) {
+			console.log(err);
+		}
+		if (rows) {
+			res.send(rows);
+		}
+	});
+});
+
+router.put('/setupold/:id', function(req, res, next){
+	var dataInput = {};
+	dataInput._decimal = req.body.setDecimal;
+	dataInput._settozero = req.body.setToZero;
+
+	var sql = "UPDATE dashboard SET ? WHERE id = " + req.params.id;
+	connection.query(sql, dataInput, function(err, result, fields){
+		if(err) throw err;
+		if(result.affectedRows){
+			res.redirect('/dashboard/setupold');
+			console.log("Success");
+		}
+	});
+});
 
 router.get('/setup', isAuth, function(req, res, next){
 	var id = req.user.id;
@@ -211,7 +237,7 @@ router.get('/groupid/:id', isAuth, function(req, res, next) {
 	var arrayGroup = [];
 	
 	
-	connection.query("SELECT dashboard.id, dashboard.users_id, dashboard._group, dashboard._sensor, dashboard.is_calc, dashboard._color, groups.id, groups.`name` FROM dashboard INNER JOIN groups ON dashboard._group = groups.id AND dashboard.users_id = ? GROUP BY dashboard._group", [id], function(err, rows){
+	connection.query("SELECT dashboard.id, dashboard.users_id, dashboard._group, dashboard._sensor, dashboard.is_calc, dashboard._decimal, dashboard._settozero, dashboard._color, groups.id, groups.`name` FROM dashboard INNER JOIN groups ON dashboard._group = groups.id AND dashboard.users_id = ? GROUP BY dashboard._group", [id], function(err, rows){
 		if(err) {
 			console.log(err);
 		}
@@ -221,7 +247,7 @@ router.get('/groupid/:id', isAuth, function(req, res, next) {
 			var arrayGroupValue = {};
 			for (var i =0;  i < rows.length; i++) {
 				 
-				connection.query("SELECT dashboard.id, dashboard.users_id, dashboard._group, dashboard._sensor, dashboard.is_calc, dashboard._color, groups.id, groups.`name` FROM dashboard INNER JOIN groups ON dashboard._group = groups.id AND dashboard._group = ? AND dashboard.users_id = ?", [rows[i]._group, id], function(errFoo, rowsFoo){
+				connection.query("SELECT dashboard.id, dashboard.users_id, dashboard._group, dashboard._sensor, dashboard.is_calc, dashboard._decimal, dashboard._settozero, dashboard._color, groups.id, groups.`name` FROM dashboard INNER JOIN groups ON dashboard._group = groups.id AND dashboard._group = ? AND dashboard.users_id = ?", [rows[i]._group, id], function(errFoo, rowsFoo){
 					
 					if(errFoo) {
 						console.log(errFoo);

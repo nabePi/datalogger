@@ -1,0 +1,471 @@
+; Copyright, 2009 Advantech Automation Corp.
+ 
+[Version]
+Signature="$Chicago$"
+Class=Advantech
+ClassGuid={900F559B-2CD0-4051-8488-D6BDD2B041F0}
+Provider=%ADVANTECH%
+DriverVer=08/08/2011, 2.07
+CatalogFile.NTx86=AdvUNODIOx86.cat
+CatalogFile.NTIA64=AdvUNODIOIA64.cat
+CatalogFile.NTAMD64=AdvUNODIOamd64.cat
+ 
+;--------- SourceDiskNames and SourceDiskFiles Section -----------------------
+
+; These sections identify source disks and files for installation.  They are
+; shown here as an example, but commented out.
+
+[SourceDisksNames]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles]
+AdvUNODIO.sys = 1,,
+;--------- ClassInstall/ClassInstall32 Section -------------------------------
+ 
+; Not necessary if using a standard class 
+; NT Style
+[ClassInstall32]
+Addreg=Class_AddReg
+
+;--------- DestinationDirs Section -------------------------------------------
+
+;[DestinationDirs]
+ADV_DRIVER_FILE = 10,System32\Drivers
+
+[Class_AddReg]
+HKR,,,,%DeviceClassName%
+HKR,,Icon,,"-5"
+ 
+;--------- Manufacturer and Models Sections ----------------------------------
+ 
+[Manufacturer]
+%ADVANTECH%=ADVANTECH.ADS ,NTx86, NTia64, NTamd64
+ 
+[ADVANTECH.ADS.NTx86]
+%UNO-2050%=UNO-2050, PCI\VEN_13FE&DEV_2E50&SUBSYS_08082050
+%UNO-2679%=UNO-2679, PCI\VEN_13FE&DEV_2E79&SUBSYS_08081622
+%UNO-1171%=UNO-1171, PCI\VEN_13FE&DEV_1171&SUBSYS_117113FE
+%DIO-ED01%=DIO-ED01, PCI\VEN_13FE&DEV_ED01&SUBSYS_ED0113FE
+%UNO-2176%=UNO-2176, *AdvUNODIO\UNO-2176
+%UNO-4672%=UNO-4672, *AdvUNODIO\UNO-4672
+%UNO-3062%=UNO-3062, *AdvUNODIO\UNO-3062
+%UNO-3072%=UNO-3072, *AdvUNODIO\UNO-3072
+%UNO-3074%=UNO-3074, *AdvUNODIO\UNO-3074
+%UNO-3084%=UNO-3084, *AdvUNODIO\UNO-3084
+%UNO-3082%=UNO-3082, *AdvUNODIO\UNO-3082
+%UNO-3072A%=UNO-3072A, *AdvUNODIO\UNO-3072A
+
+[ADVANTECH.ADS.NTia64]
+%UNO-2050%=UNO-2050, PCI\VEN_13FE&DEV_2E50&SUBSYS_08082050
+%UNO-2679%=UNO-2679, PCI\VEN_13FE&DEV_2E79&SUBSYS_08081622
+%UNO-1171%=UNO-1171, PCI\VEN_13FE&DEV_1171&SUBSYS_117113FE
+%DIO-ED01%=DIO-ED01, PCI\VEN_13FE&DEV_ED01&SUBSYS_ED0113FE
+%UNO-2176%=UNO-2176, *AdvUNODIO\UNO-2176
+%UNO-4672%=UNO-4672, *AdvUNODIO\UNO-4672
+%UNO-3062%=UNO-3062, *AdvUNODIO\UNO-3062
+%UNO-3072%=UNO-3072, *AdvUNODIO\UNO-3072
+%UNO-3074%=UNO-3074, *AdvUNODIO\UNO-3074
+%UNO-3084%=UNO-3084, *AdvUNODIO\UNO-3084
+%UNO-3082%=UNO-3082, *AdvUNODIO\UNO-3082
+%UNO-3072A%=UNO-3072A, *AdvUNODIO\UNO-3072A
+
+[ADVANTECH.ADS.NTamd64]
+%UNO-2050%=UNO-2050, PCI\VEN_13FE&DEV_2E50&SUBSYS_08082050
+%UNO-2679%=UNO-2679, PCI\VEN_13FE&DEV_2E79&SUBSYS_08081622
+%UNO-1171%=UNO-1171, PCI\VEN_13FE&DEV_1171&SUBSYS_117113FE
+%DIO-ED01%=DIO-ED01, PCI\VEN_13FE&DEV_ED01&SUBSYS_ED0113FE
+%UNO-2176%=UNO-2176, *AdvUNODIO\UNO-2176
+%UNO-4672%=UNO-4672, *AdvUNODIO\UNO-4672
+%UNO-3062%=UNO-3062, *AdvUNODIO\UNO-3062
+%UNO-3072%=UNO-3072, *AdvUNODIO\UNO-3072
+%UNO-3074%=UNO-3074, *AdvUNODIO\UNO-3074
+%UNO-3084%=UNO-3084, *AdvUNODIO\UNO-3084
+%UNO-3082%=UNO-3082, *AdvUNODIO\UNO-3082
+%UNO-3072A%=UNO-3072A, *AdvUNODIO\UNO-3072A
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Windows 2000
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+; UNO-2050
+
+[UNO-2050]
+
+[UNO-2050.Services]
+AddService=UNO-2050DIOS, %SPSVCINST_ASSOCSERVICE%, UNO-2050DIOS.Service, UNO-2050_Inst
+
+[UNO-2050DIOS.Service]
+DisplayName    = %UNO-2050S.ServiceName%
+ServiceType    = 1
+StartType      = 1
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\AdvUNODIO.sys
+
+[UNO-2050_Inst]
+AddReg = UNO-2050_AddReg
+
+[UNO-2050_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\AdvUNODIO.sys"
+HKR,,TypesSupported,0x00010001,7
+HKLM,"SYSTEM\CurrentControlSet\Services\ADVUNODIOS"
+HKLM,"SYSTEM\CurrentControlSet\Services\UNO-2050DIOS","DeviceType", 0x00010003, 21
+ 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+; UNO-2679
+
+[UNO-2679]
+
+[UNO-2679.Services]
+AddService=UNO-2679DIOS, %SPSVCINST_ASSOCSERVICE%, UNO-2679DIOS.Service, UNO-2679_Inst
+
+[UNO-2679DIOS.Service]
+DisplayName    = %UNO-2679S.ServiceName%
+ServiceType    = 1
+StartType      = 1
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\AdvUNODIO.sys
+
+[UNO-2679_Inst]
+AddReg = UNO-2679_AddReg
+
+[UNO-2679_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\AdvUNODIO.sys"
+HKR,,TypesSupported,0x00010001,7
+HKLM,"SYSTEM\CurrentControlSet\Services\ADVUNODIOS"
+HKLM,"SYSTEM\CurrentControlSet\Services\UNO-2679DIOS","DeviceType", 0x00010003, 22
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+; UNO-1171
+
+[UNO-1171]
+
+[UNO-1171.Services]
+AddService=UNO-1171DIOS, %SPSVCINST_ASSOCSERVICE%, UNO-1171DIOS.Service, UNO-1171_Inst
+
+[UNO-1171DIOS.Service]
+DisplayName    = %UNO-1171S.ServiceName%
+ServiceType    = 1
+StartType      = 1
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\AdvUNODIO.sys
+
+[UNO-1171_Inst]
+AddReg = UNO-1171_AddReg
+
+[UNO-1171_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\AdvUNODIO.sys"
+HKR,,TypesSupported,0x00010001,7
+HKLM,"SYSTEM\CurrentControlSet\Services\ADVUNODIOS"
+HKLM,"SYSTEM\CurrentControlSet\Services\UNO-1171DIOS","DeviceType", 0x00010003, 23
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+; DIO-ED01
+
+[DIO-ED01]
+
+[DIO-ED01.Services]
+AddService=DIO-ED01DIOS, %SPSVCINST_ASSOCSERVICE%, DIO-ED01DIOS.Service, DIO-ED01_Inst
+
+[DIO-ED01DIOS.Service]
+DisplayName    = %DIO-ED01S.ServiceName%
+ServiceType    = 1
+StartType      = 1
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\AdvUNODIO.sys
+
+[DIO-ED01_Inst]
+AddReg = DIO-ED01_AddReg
+
+[DIO-ED01_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\AdvUNODIO.sys"
+HKR,,TypesSupported,0x00010001,7
+HKLM,"SYSTEM\CurrentControlSet\Services\ADVUNODIOS"
+HKLM,"SYSTEM\CurrentControlSet\Services\DIO-ED01DIOS","DeviceType", 0x00010003, 24
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+; UNO-2176
+[UNO-2176]
+AddReg=UNO-2176_Inst
+LogConfig=UNO-2176_ISA
+; --------- LogConfig Section -----------------
+
+[UNO-2176_ISA]
+ConfigPriority=DESIRED
+IOConfig=200-21f	
+IRQConfig=7
+; --------- AddService Section -----------------
+
+[UNO-2176.Services]
+AddService = UNO-2176DIOs, %SPSVCINST_ASSOCSERVICE%, UNO-2176DIOs.Service
+
+
+[UNO-2176DIOs.Service]
+DisplayName    = %UNO-2176S.ServiceName%
+ServiceType    = 1
+StartType      = 1
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\AdvUNODIO.sys
+
+[UNO-2176_Inst]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\AdvUNODIO.sys"
+HKR,,TypesSupported,0x00010001,7
+HKLM,"SYSTEM\CurrentControlSet\Services\ADVUNODIOS"
+HKLM,"SYSTEM\CurrentControlSet\Services\UNO-2176DIOS","DeviceType", 0x00010003, 3
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+; UNO-4672
+[UNO-4672]
+AddReg=UNO-4672_Inst
+LogConfig=UNO-4672_ISA
+; --------- LogConfig Section -----------------
+
+[UNO-4672_ISA]
+ConfigPriority=DESIRED
+IOConfig=200-21f	
+IRQConfig=7
+; --------- AddService Section -----------------
+
+[UNO-4672.Services]
+AddService = UNO-4672DIOs, %SPSVCINST_ASSOCSERVICE%, UNO-4672DIOs.Service
+
+
+[UNO-4672DIOs.Service]
+DisplayName    = %UNO-4672S.ServiceName%
+ServiceType    = 1
+StartType      = 1
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\AdvUNODIO.sys
+
+[UNO-4672_Inst]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\AdvUNODIO.sys"
+HKR,,TypesSupported,0x00010001,7
+HKLM,"SYSTEM\CurrentControlSet\Services\ADVUNODIOS"
+HKLM,"SYSTEM\CurrentControlSet\Services\UNO-4672DIOS","DeviceType", 0x00010003, 4
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+; UNO-3062
+[UNO-3062]
+AddReg=UNO-3062_Inst
+LogConfig=UNO-3062_ISA
+; --------- LogConfig Section -----------------
+
+[UNO-3062_ISA]
+ConfigPriority=DESIRED
+IOConfig=20@200-21f	
+IRQConfig=7
+; --------- AddService Section -----------------
+
+[UNO-3062.Services]
+AddService = UNO-3062DIOs, %SPSVCINST_ASSOCSERVICE%, UNO-3062DIOs.Service
+
+
+[UNO-3062DIOs.Service]
+DisplayName    = %UNO-3062S.ServiceName%
+ServiceType    = 1
+StartType      = 1
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\AdvUNODIO.sys
+
+[UNO-3062_Inst]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\AdvUNODIO.sys"
+HKR,,TypesSupported,0x00010001,7
+HKLM,"SYSTEM\CurrentControlSet\Services\ADVUNODIOS"
+HKLM,"SYSTEM\CurrentControlSet\Services\UNO-3062DIOS","DeviceType", 0x00010003, 6
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+; UNO-3072
+[UNO-3072]
+AddReg=UNO-3072_Inst
+LogConfig=UNO-3072_ISA
+; --------- LogConfig Section -----------------
+
+[UNO-3072_ISA]
+ConfigPriority=DESIRED
+IOConfig=20@200-21f	
+IRQConfig=7
+; --------- AddService Section -----------------
+
+[UNO-3072.Services]
+AddService = UNO-3072DIOs, %SPSVCINST_ASSOCSERVICE%, UNO-3072DIOs.Service
+
+
+[UNO-3072DIOs.Service]
+DisplayName    = %UNO-3072S.ServiceName%
+ServiceType    = 1
+StartType      = 1
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\AdvUNODIO.sys
+
+[UNO-3072_Inst]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\AdvUNODIO.sys"
+HKR,,TypesSupported,0x00010001,7
+HKLM,"SYSTEM\CurrentControlSet\Services\ADVUNODIOS"
+HKLM,"SYSTEM\CurrentControlSet\Services\UNO-3072DIOS","DeviceType", 0x00010003, 6
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+; UNO-3074
+[UNO-3074]
+AddReg=UNO-3074_Inst
+LogConfig=UNO-3074_ISA
+; --------- LogConfig Section -----------------
+
+[UNO-3074_ISA]
+ConfigPriority=DESIRED
+IOConfig=20@200-21f	
+IRQConfig=7
+; --------- AddService Section -----------------
+
+[UNO-3074.Services]
+AddService = UNO-3074DIOs, %SPSVCINST_ASSOCSERVICE%, UNO-3074DIOs.Service
+
+
+[UNO-3074DIOs.Service]
+DisplayName    = %UNO-3074S.ServiceName%
+ServiceType    = 1
+StartType      = 1
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\AdvUNODIO.sys
+
+[UNO-3074_Inst]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\AdvUNODIO.sys"
+HKR,,TypesSupported,0x00010001,7
+HKLM,"SYSTEM\CurrentControlSet\Services\ADVUNODIOS"
+HKLM,"SYSTEM\CurrentControlSet\Services\UNO-3074DIOS","DeviceType", 0x00010003, 6
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+; UNO-3084
+[UNO-3084]
+AddReg=UNO-3084_Inst
+LogConfig=UNO-3084_ISA
+; --------- LogConfig Section -----------------
+
+[UNO-3084_ISA]
+ConfigPriority=DESIRED
+IOConfig=20@200-21f	
+IRQConfig=7
+; --------- AddService Section -----------------
+
+[UNO-3084.Services]
+AddService = UNO-3084DIOs, %SPSVCINST_ASSOCSERVICE%, UNO-3084DIOs.Service
+
+
+[UNO-3084DIOs.Service]
+DisplayName    = %UNO-3084S.ServiceName%
+ServiceType    = 1
+StartType      = 1
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\AdvUNODIO.sys
+
+[UNO-3084_Inst]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\AdvUNODIO.sys"
+HKR,,TypesSupported,0x00010001,7
+HKLM,"SYSTEM\CurrentControlSet\Services\ADVUNODIOS"
+HKLM,"SYSTEM\CurrentControlSet\Services\UNO-3084DIOS","DeviceType", 0x00010003, 9
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+; UNO-3082
+[UNO-3082]
+AddReg=UNO-3082_Inst
+LogConfig=UNO-3082_ISA
+; --------- LogConfig Section -----------------
+
+[UNO-3082_ISA]
+ConfigPriority=DESIRED
+IOConfig=20@200-21f	
+IRQConfig=7
+; --------- AddService Section -----------------
+
+[UNO-3082.Services]
+AddService = UNO-3082DIOs, %SPSVCINST_ASSOCSERVICE%, UNO-3082DIOs.Service
+
+
+[UNO-3082DIOs.Service]
+DisplayName    = %UNO-3082S.ServiceName%
+ServiceType    = 1
+StartType      = 1
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\AdvUNODIO.sys
+
+[UNO-3082_Inst]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\AdvUNODIO.sys"
+HKR,,TypesSupported,0x00010001,7
+HKLM,"SYSTEM\CurrentControlSet\Services\ADVUNODIOS"
+HKLM,"SYSTEM\CurrentControlSet\Services\UNO-3082DIOS","DeviceType", 0x00010003, 9
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+; UNO-3072A
+[UNO-3072A]
+AddReg=UNO-3072A_Inst
+LogConfig=UNO-3072A_ISA
+; --------- LogConfig Section -----------------
+
+[UNO-3072A_ISA]
+ConfigPriority=DESIRED
+IOConfig=20@200-21f	
+IRQConfig=7
+; --------- AddService Section -----------------
+
+[UNO-3072A.Services]
+AddService = UNO-3072ADIOs, %SPSVCINST_ASSOCSERVICE%, UNO-3072ADIOs.Service
+
+
+[UNO-3072ADIOs.Service]
+DisplayName    = %UNO-3072AS.ServiceName%
+ServiceType    = 1
+StartType      = 1
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\AdvUNODIO.sys
+
+[UNO-3072A_Inst]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\AdvUNODIO.sys"
+HKR,,TypesSupported,0x00010001,7
+HKLM,"SYSTEM\CurrentControlSet\Services\ADVUNODIOS"
+HKLM,"SYSTEM\CurrentControlSet\Services\UNO-3072ADIOS","DeviceType", 0x00010003, 9
+
+[Strings]
+ADVANTECH="Advantech Co., Ltd."
+DeviceClassName="Advantech UNO DIO Device"
+ 
+UNO-2050="Advantech UNO-2050 Device"
+UNO-2050S.ServiceName="Advantech UNO-2050 Device"
+
+UNO-2679="Advantech UNO-2679 Device"
+UNO-2679S.ServiceName="Advantech UNO-2679 Device"
+
+UNO-1171="Advantech UNO-1171 Device"
+UNO-1171S.ServiceName="Advantech UNO-1171 Device"
+
+DIO-ED01="Advantech IO Device"
+DIO-ED01S.ServiceName="Advantech IO Device"
+ 
+UNO-2176="Advantech UNO-2176 Device"
+UNO-2176S.ServiceName="Advantech UNO-2176 Device"
+
+UNO-4672="Advantech UNO-4672 Device"
+UNO-4672S.ServiceName="Advantech UNO-4672 Device"
+
+UNO-3062="Advantech UNO-3062 Device"
+UNO-3062S.ServiceName="Advantech UNO-3062 Device"
+
+UNO-3072="Advantech UNO-3072 DIO Device"
+UNO-3072S.ServiceName="Advantech UNO-3072 Device"
+
+UNO-3074="Advantech UNO-3074 DIO Device"
+UNO-3074S.ServiceName="Advantech UNO-3074 Device"
+
+UNO-3084="Advantech UNO-3084 DIO Device"
+UNO-3084S.ServiceName="Advantech UNO-3084 Device"
+
+UNO-3082="Advantech UNO-3082 DIO Device"
+UNO-3082S.ServiceName="Advantech UNO-3082 Device"
+
+UNO-3072A="Advantech UNO-3072/4A DIO Device"
+UNO-3072AS.ServiceName="Advantech UNO-3072/4A Device"
+
+SPSVCINST_ASSOCSERVICE=0x00000002
+COPYFLG_NOSKIP=2 ; Do not allow user to skip file
+SERVICE_KERNEL_DRIVER=1
+SERVICE_AUTO_START=1
+SERVICE_DEMAND_START=3
+SERVICE_ERROR_NORMAL=1
+DiskId1 = "ADVANTECH Installation Disk #1 (Advantech)"

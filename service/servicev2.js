@@ -51,13 +51,21 @@ var cacheRawData = [];
 var pollingLoop = function() {
 	var data = {};
 	var data_process = {};
+	
 	var all_control_sensor = [];
+	
 	var all_sensors_raw = [];
 	var all_sensors_calc = [];
+
+	var all_alarm = {};
+	var all_alarm_raw = {};
+	var all_alarm_calc = {};
+
 	var all_raw_data = [];
 	var all_raw_rs485 = [];
 	var all_raw_flow = [];
 	var all_raw_flow_tot = [];
+
 	var push_datas = [];
 	var push_datas_calc = [];
 
@@ -100,6 +108,51 @@ var pollingLoop = function() {
 				.on('end', function() {
 					// data.control_sensor = all_control_sensor;
 					data.all_sensors_calc = all_sensors_calc
+					callback(null, 1);
+					connection.release();
+				});
+			});
+		},
+		async_sensor_alarm: function(callback) {
+			poolv2.getConnection(function(err, connection) {
+				if (err) {
+					console.log(err);
+				}
+				connection.query('SELECT * FROM sensor_alarm')
+				.on('error', function(err) {
+					console.log(err);
+				})
+				.on('result', function(res) {
+					// all_control_sensor.push(res);
+					// all_sensors_calc.push(res);
+					console.log(res.is_calc);
+					if (res.is_calc > 0) {
+						var keyAlarmRaw = 'ALARM_CALC_'+res.id;
+
+						var valueAlaramRaw = {};
+						valueAlaramRaw.channel_LL = res.channel_LL;
+						valueAlaramRaw.channel_L = res.channel_L;
+						valueAlaramRaw.channel_H = res.channel_H;
+						valueAlaramRaw.channel_HH = res.channel_HH;
+
+						all_alarm[keyAlarmRaw] = valueAlaramRaw;
+					} else {
+						var keyAlarmRaw = 'ALARM_RAW_'+res.id;
+
+						var valueAlaramRaw = {};
+						valueAlaramRaw.channel_LL = res.channel_LL;
+						valueAlaramRaw.channel_L = res.channel_L;
+						valueAlaramRaw.channel_H = res.channel_H;
+						valueAlaramRaw.channel_HH = res.channel_HH;
+
+						all_alarm[keyAlarmRaw] = valueAlaramRaw;
+					}
+				})
+				.on('end', function() {
+					// data.control_sensor = all_control_sensor;
+					// data.all_sensors_calc = all_sensors_calc
+					
+					console.log(all_alarm);
 					callback(null, 1);
 					connection.release();
 				});
@@ -271,7 +324,7 @@ var pollingLoop = function() {
 
 				push_data.sensor_id = sensors_raw_id;
 				push_data.sensor_name = sensors_raw_name;
-				push_data.sensor_value = parseFloat(sensor_value).toFixed(2);
+				push_data.sensor_value = parseFloat(sensor_value);
 				push_data.sensor_dateRecorded = localeDateTime(sensor_dateRecorded);
 				push_data.sensor_unit = sensors_raw_unit;
 				push_data.sensor_type = sensors_raw_type;
@@ -280,7 +333,7 @@ var pollingLoop = function() {
 
 				push_dataKeyId.sensor_id = sensors_raw_id;
 				push_dataKeyId.sensor_name = sensors_raw_name;
-				push_dataKeyId.sensor_value = parseFloat(sensor_value).toFixed(2);
+				push_dataKeyId.sensor_value = parseFloat(sensor_value);
 				push_dataKeyId.sensor_dateRecorded = localeDateTime(sensor_dateRecorded);
 				push_dataKeyId.sensor_unit = sensors_raw_unit;
 				push_dataKeyId.sensor_type = sensors_raw_type;
@@ -328,7 +381,7 @@ var pollingLoop = function() {
 				push_data_calc.sensor_variable = sensors_calc_variable;
 				push_data_calc.sensor_variable_customize = sensors_calc_variable_customize;
 				push_data_calc.sensor_formula = sensors_calc_formula;
-				push_data_calc.sensor_value = parseFloat(sensors_calc_results).toFixed(2);
+				push_data_calc.sensor_value = parseFloat(sensors_calc_results);
 
 				push_datas_calc.push(push_data_calc);
 
@@ -337,7 +390,7 @@ var pollingLoop = function() {
 				var keyForCalc = 'calc_'+sensors_calc_id;
 				push_dataCalcKeyId.sensor_id = sensors_calc_id;
 				push_dataCalcKeyId.sensor_name = sensors_calc_name;
-				push_dataCalcKeyId.sensor_value = parseFloat(sensors_calc_results).toFixed(2);
+				push_dataCalcKeyId.sensor_value = parseFloat(sensors_calc_results);
 				push_dataCalcKeyId.sensor_type = 7;
 				data_process[keyForCalc] = push_dataCalcKeyId;
 			}
@@ -390,10 +443,7 @@ io.sockets.on('connection', function(socket) {
 		var socketIndex = connectionsArray.indexOf(socket);
 		console.log('socketID = %s got disconnected', socketIndex);
 		if (~socketIndex) {
-
 			connectionsArray.splice(socketIndex, 1);
-			console.log(connectionsArray);
-			console.log('lorem');
 		}
 	});
 
@@ -402,4 +452,4 @@ io.sockets.on('connection', function(socket) {
 });
 
 app.listen(8001);
-console.log('Please use your browser to navigate to http://localhost:8001');
+console.log('SERVICE_READY [OK] [http://localhost:8001]');

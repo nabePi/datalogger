@@ -1,0 +1,19 @@
+{
+  "name": "modbus-delaval",
+  "version": "1.0.0",
+  "description": "Delaval Modbus Protocol",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Delaval",
+    "Modbus"
+  ],
+  "author": "WahyuSaid",
+  "license": "ISC",
+  "dependencies": {
+    "modbus-rtu": "^0.2.1",
+    "serialport": "^5.0.0"
+  }
+}
