@@ -322,7 +322,7 @@
                             autoElement += '<div class="cell-'+countData+'">'
                             autoElement += '<div class="card '+ colorCard[res.data[sensor_id].sensor_type] +'">'
                             autoElement += '<div class="title">'
-                            autoElement += '<p>'+res.data[sensor_id].sensor_name+'</p>';
+                            autoElement += '<p>'+res.data[sensor_id].sensor_name+res.data[sensor_id].alarm_label+'</p>';
                             autoElement += '</div>'
                             autoElement += '<div class="value">'
                             autoElement += '<p>'+ valueFix +' <small class="'+unitSpecialClass+'">'+res.data[sensor_id].sensor_unit+'</small></p>';

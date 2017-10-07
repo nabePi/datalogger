@@ -19,10 +19,12 @@
     "express-session": "^1.15.4",
     "jade": "~1.11.0",
     "method-override": "^2.3.9",
+    "modbus-rtu": "^0.2.1",
     "morgan": "~1.8.1",
     "mysql": "^2.13.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "serialport": "^5.0.0",
     "serve-favicon": "~2.4.2",
     "socket.io": "^2.0.3",
     "windows-registry": "^0.1.3"

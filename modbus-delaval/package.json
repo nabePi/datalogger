@@ -13,6 +13,7 @@
   "author": "WahyuSaid",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.5.0",
     "modbus-rtu": "^0.2.1",
     "serialport": "^5.0.0"
   }
